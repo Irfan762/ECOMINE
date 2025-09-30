@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOMINE Enterprise - AI-Powered Sustainability Intelligence Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar glass-effect">
+        <div class="container">
+            <div class="nav-brand">
+                <div class="brand-logo">
+                    <div class="logo-icon"></div>
+                    <div class="brand-text">
+                        <h2>ECOMINE</h2>
+                        <span class="brand-subtitle">Enterprise v3.0</span>
+                    </div>
+                </div>
+            </div>
+            <div class="nav-links">
+                <button class="nav-link active" onclick="showSection('dashboard')" data-section="dashboard">
+                    <span class="nav-icon">📊</span> Executive Dashboard
+                </button>
+                <button class="nav-link" onclick="showSection('calculator')" data-section="calculator">
+                    <span class="nav-icon">🤖</span> AI Calculator
+                </button>
+                <button class="nav-link" onclick="showSection('analytics')" data-section="analytics">
+                    <span class="nav-icon">📈</span> Advanced Analytics
+                </button>
+                <button class="nav-link" onclick="showSection('scenarios')" data-section="scenarios">
+                    <span class="nav-icon">🔬</span> Scenario Modeling
+                </button>
+                <button class="nav-link" onclick="showSection('reports')" data-section="reports">
+                    <span class="nav-icon">📋</span> Enterprise Reports
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Executive Dashboard -->
+    <section id="dashboard" class="section active">
+        <div class="container">
+            <!-- Hero Section with Global Impact -->
+            <div class="executive-hero">
+                <div class="hero-content">
+                    <div class="status-indicator">
+                        <span class="status-dot animate-pulse"></span>
+                        Live Global Impact Monitoring
+                    </div>
+                    <h1 class="hero-title">AI-Powered Sustainability Intelligence Platform</h1>
+                    <p class="hero-subtitle">Transforming LCA complexity from 70+ parameters to 5-7 critical inputs with 85-99% AI accuracy</p>
+                    <div class="hero-actions">
+                        <button class="btn btn-primary btn-lg glass-button" onclick="showSection('calculator')">
+                            Launch AI Assessment
+                        </button>
+                        <button class="btn btn-secondary btn-lg glass-button" onclick="showSection('analytics')">
+                            View Analytics Suite
+                        </button>
+                    </div>
+                </div>
+                <div class="global-impact-viz">
+                    <div class="world-map-container">
+                        <div class="impact-pulse pulse-1"></div>
+                        <div class="impact-pulse pulse-2"></div>
+                        <div class="impact-pulse pulse-3"></div>
+                        <div class="world-map"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-time KPI Widgets -->
+            <div class="kpi-grid">
+                <div class="kpi-widget glass-card">
+                    <div class="kpi-icon">🌍</div>
+                    <div class="kpi-content">
+                        <div class="kpi-value" id="globalAssessments">15,847</div>
+                        <div class="kpi-label">Global Assessments</div>
+                        <div class="kpi-trend positive">+23% vs last quarter</div>
+                    </div>
+                </div>
+                <div class="kpi-widget glass-card">
+                    <div class="kpi-icon">🌿</div>
+                    <div class="kpi-content">
+                        <div class="kpi-value" id="co2Reduced">847,250</div>
+                        <div class="kpi-label">Tonnes CO₂ Reduced</div>
+                        <div class="kpi-trend positive">+31% impact increase</div>
+                    </div>
+                </div>
+                <div class="kpi-widget glass-card">
+                    <div class="kpi-icon">💰</div>
+                    <div class="kpi-content">
+                        <div class="kpi-value" id="costSavings">₹2,847</div>
+                        <div class="kpi-label">Cost Savings (Crore)</div>
+                        <div class="kpi-trend positive">92% time reduction</div>
+                    </div>
+                </div>
+                <div class="kpi-widget glass-card">
+                    <div class="kpi-icon">🏢</div>
+                    <div class="kpi-content">
+                        <div class="kpi-value" id="companiesServed">342</div>
+                        <div class="kpi-label">Enterprise Clients</div>
+                        <div class="kpi-trend positive">Across 28 countries</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Industry Benchmarking -->
+            <div class="benchmark-section">
+                <div class="section-header">
+                    <h3>Industry Performance Benchmarks</h3>
+                    <div class="benchmark-controls">
+                        <select class="form-control industry-selector">
+                            <option value="all">All Industries</option>
+                            <option value="aluminum">Aluminum Processing</option>
+                            <option value="copper">Copper Mining & Refining</option>
+                            <option value="steel">Steel Production</option>
+                            <option value="automotive">Automotive Manufacturing</option>
+                            <option value="construction">Construction Materials</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="benchmark-chart-container" style="position: relative; height: 400px;">
+                    <canvas id="benchmarkChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Executive Summary Cards -->
+            <div class="executive-summary">
+                <div class="summary-card glass-card">
+                    <h4>AI Model Performance</h4>
+                    <div class="performance-metrics">
+                        <div class="metric-item">
+                            <span class="metric-name">Energy Prediction</span>
+                            <span class="metric-accuracy">96% accuracy</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 96%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">CO₂ Emissions</span>
+                            <span class="metric-accuracy">94% accuracy</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 94%"></div>
+                            </div>
+                        </div>
+                        <div class="metric-item">
+                            <span class="metric-name">Water Usage</span>
+                            <span class="metric-accuracy">89% accuracy</span>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: 89%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="summary-card glass-card">
+                    <h4>Compliance & Standards</h4>
+                    <div class="compliance-list">
+                        <div class="compliance-item active">
+                            <span class="compliance-icon">✓</span>
+                            ISO 14040/14044 Certified
+                        </div>
+                        <div class="compliance-item active">
+                            <span class="compliance-icon">✓</span>
+                            EN 15804 Compatible
+                        </div>
+                        <div class="compliance-item active">
+                            <span class="compliance-icon">✓</span>
+                            GRI Standards Aligned
+                        </div>
+                        <div class="compliance-item active">
+                            <span class="compliance-icon">✓</span>
+                            TCFD Framework Ready
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- AI Calculator Section -->
+    <section id="calculator" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>AI-Enhanced LCA Calculator</h2>
+                <p class="section-subtitle">Advanced AI predicts 70+ parameters from 5-7 critical inputs with enterprise-grade accuracy</p>
+            </div>
+
+            <div class="calculator-workspace">
+                <!-- Smart Input Panel -->
+                <div class="input-panel glass-card">
+                    <div class="panel-header">
+                        <h3>Smart Parameter Detection</h3>
+                        <div class="ai-status">
+                            <div class="ai-indicator active"></div>
+                            <span>AI Models Active</span>
+                        </div>
+                    </div>
+
+                    <form id="lcaForm" class="smart-form">
+                        <div class="form-group">
+                            <label class="form-label">Metal Type</label>
+                            <select class="form-control smart-input" id="metalType" required>
+                                <option value="">Select metal type...</option>
+                                <option value="aluminum">Aluminum (Al)</option>
+                                <option value="copper">Copper (Cu)</option>
+                                <option value="steel">Steel (Fe)</option>
+                            </select>
+                            <div class="input-hint">AI will adapt calculations based on metal properties</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Ore Grade: <span id="oreGradeValue" class="value-display">2.5%</span></label>
+                            <input type="range" class="form-control range-input" id="oreGrade" min="0.1" max="10" step="0.1" value="2.5">
+                            <div class="range-labels">
+                                <span>0.1%</span>
+                                <span>5.5%</span>
+                                <span>10%</span>
+                            </div>
+                            <div class="input-hint">Critical parameter for energy intensity prediction</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Production Scale</label>
+                            <div class="input-group">
+                                <input type="number" class="form-control" id="productionCapacity" placeholder="50,000" required>
+                                <span class="input-suffix">tonnes/year</span>
+                            </div>
+                            <div class="input-hint">Affects economies of scale and efficiency factors</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Geographic Location</label>
+                            <select class="form-control smart-input" id="location" required>
+                                <option value="">Select region...</option>
+                                <option value="china">China</option>
+                                <option value="india">India</option>
+                                <option value="europe">Europe</option>
+                                <option value="nordics">Nordic Countries</option>
+                                <option value="gcc">GCC Countries</option>
+                            </select>
+                            <div class="input-hint">Influences grid mix, regulations, and transport</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Energy Infrastructure</label>
+                            <div class="radio-grid">
+                                <label class="radio-card">
+                                    <input type="radio" name="energyMix" value="coal_heavy" required>
+                                    <div class="radio-content">
+                                        <div class="radio-title">Coal-Heavy Grid</div>
+                                        <div class="radio-description">1.35x emissions factor</div>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="energyMix" value="mixed_grid">
+                                    <div class="radio-content">
+                                        <div class="radio-title">Mixed Grid</div>
+                                        <div class="radio-description">Baseline emissions</div>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="energyMix" value="renewable_heavy">
+                                    <div class="radio-content">
+                                        <div class="radio-title">Renewable-Heavy</div>
+                                        <div class="radio-description">0.42x emissions factor</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Processing Technology</label>
+                            <div class="radio-grid">
+                                <label class="radio-card">
+                                    <input type="radio" name="processingRoute" value="pyrometallurgy" required>
+                                    <div class="radio-content">
+                                        <div class="radio-title">Pyrometallurgy</div>
+                                        <div class="radio-description">High-temp processing</div>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="processingRoute" value="hydrometallurgy">
+                                    <div class="radio-content">
+                                        <div class="radio-title">Hydrometallurgy</div>
+                                        <div class="radio-description">Chemical extraction</div>
+                                    </div>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="processingRoute" value="hybrid">
+                                    <div class="radio-content">
+                                        <div class="radio-title">Hybrid Process</div>
+                                        <div class="radio-description">Combined approach</div>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-full-width btn-lg glass-button">
+                            🚀 Launch AI Analysis
+                        </button>
+                    </form>
+                </div>
+
+                <!-- AI Processing & Results Panel -->
+                <div class="results-panel glass-card">
+                    <!-- Loading State -->
+                    <div id="loadingState" class="ai-processing-state hidden">
+                        <div class="ai-brain">
+                            <div class="brain-core"></div>
+                            <div class="neural-network">
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                                <div class="neuron"></div>
+                            </div>
+                        </div>
+                        <h3 class="processing-title">AI Intelligence Processing</h3>
+                        <div class="processing-steps">
+                            <div class="step active">
+                                <div class="step-icon">🧠</div>
+                                <div class="step-text">Initializing Ensemble Models</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">⚡</div>
+                                <div class="step-text">Analyzing Parameter Dependencies</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">🔍</div>
+                                <div class="step-text">Generating Predictions</div>
+                            </div>
+                            <div class="step">
+                                <div class="step-icon">📊</div>
+                                <div class="step-text">Calculating Confidence Intervals</div>
+                            </div>
+                        </div>
+                        <div class="progress-container">
+                            <div class="progress-bar-ai">
+                                <div class="progress-fill-ai"></div>
+                            </div>
+                            <div class="progress-text">Processing... <span id="progressPercent">0%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- Results State -->
+                    <div id="resultsState" class="results-state hidden">
+                        <div class="results-header">
+                            <h3>LCA Assessment Results</h3>
+                            <div class="model-info">
+                                <span class="model-tag">Random Forest</span>
+                                <span class="confidence-score">94% Confidence</span>
+                            </div>
+                        </div>
+
+                        <!-- Key Metrics with Confidence Intervals -->
+                        <div class="metrics-grid-advanced">
+                            <div class="metric-card-advanced">
+                                <div class="metric-header">
+                                    <h4>Energy Consumption</h4>
+                                    <div class="data-quality high"></div>
+                                </div>
+                                <div class="metric-value-advanced">
+                                    <span id="energyValue">-</span>
+                                    <span class="metric-unit">GJ/tonne</span>
+                                </div>
+                                <div class="confidence-interval">
+                                    <span id="energyRange">12.3-14.7 (94% confidence)</span>
+                                </div>
+                                <div class="prediction-method">AI Model: Random Forest</div>
+                            </div>
+
+                            <div class="metric-card-advanced">
+                                <div class="metric-header">
+                                    <h4>CO₂ Emissions</h4>
+                                    <div class="data-quality high"></div>
+                                </div>
+                                <div class="metric-value-advanced">
+                                    <span id="co2Value">-</span>
+                                    <span class="metric-unit">tCO₂/tonne</span>
+                                </div>
+                                <div class="confidence-interval">
+                                    <span id="co2Range">11.8-13.2 (94% confidence)</span>
+                                </div>
+                                <div class="prediction-method">AI Model: Neural Network</div>
+                            </div>
+
+                            <div class="metric-card-advanced">
+                                <div class="metric-header">
+                                    <h4>Water Usage</h4>
+                                    <div class="data-quality medium"></div>
+                                </div>
+                                <div class="metric-value-advanced">
+                                    <span id="waterValue">-</span>
+                                    <span class="metric-unit">L/kg</span>
+                                </div>
+                                <div class="confidence-interval">
+                                    <span id="waterRange">1150-1400 (89% confidence)</span>
+                                </div>
+                                <div class="prediction-method">AI Model: Gradient Boosting</div>
+                            </div>
+
+                            <div class="metric-card-advanced">
+                                <div class="metric-header">
+                                    <h4>Material Circularity</h4>
+                                    <div class="data-quality high"></div>
+                                </div>
+                                <div class="metric-value-advanced">
+                                    <span id="circularityValue">-</span>
+                                    <span class="metric-unit">MCI Score</span>
+                                </div>
+                                <div class="confidence-interval">
+                                    <span id="circularityRange">75-85 (92% confidence)</span>
+                                </div>
+                                <div class="prediction-method">AI Model: XGBoost</div>
+                            </div>
+                        </div>
+
+                        <!-- Advanced Visualization -->
+                        <div class="visualization-container">
+                            <div class="viz-tabs">
+                                <button class="viz-tab active" onclick="switchVisualization('impact')">Impact Breakdown</button>
+                                <button class="viz-tab" onclick="switchVisualization('uncertainty')">Uncertainty Analysis</button>
+                                <button class="viz-tab" onclick="switchVisualization('sensitivity')">Sensitivity Analysis</button>
+                            </div>
+                            <div class="chart-container" style="position: relative; height: 400px;">
+                                <canvas id="advancedChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advanced Analytics Section -->
+    <section id="analytics" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Advanced Analytics Suite</h2>
+                <p class="section-subtitle">Deep insights with AI-powered analysis and industry benchmarking</p>
+            </div>
+
+            <div class="analytics-dashboard">
+                <!-- Hotspot Analysis -->
+                <div class="analytics-card glass-card">
+                    <div class="card-header">
+                        <h3>Environmental Hotspot Identification</h3>
+                        <div class="analysis-controls">
+                            <button class="btn btn-sm btn-outline">Refresh Analysis</button>
+                        </div>
+                    </div>
+                    <div class="hotspot-container">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="hotspotChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Trend Analysis -->
+                <div class="analytics-card glass-card">
+                    <div class="card-header">
+                        <h3>Temporal Impact Trends</h3>
+                        <div class="time-range-selector">
+                            <button class="time-btn active">1Y</button>
+                            <button class="time-btn">3Y</button>
+                            <button class="time-btn">5Y</button>
+                        </div>
+                    </div>
+                    <div class="trend-container">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scenario Modeling Section -->
+    <section id="scenarios" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Scenario Modeling & Optimization</h2>
+                <p class="section-subtitle">AI-powered what-if analysis and optimization recommendations</p>
+            </div>
+
+            <div class="scenario-workspace">
+                <div class="scenario-controls glass-card">
+                    <div class="control-header">
+                        <h3>Scenario Builder</h3>
+                        <div class="scenario-actions">
+                            <button class="btn btn-secondary" onclick="addScenario()">+ Add Scenario</button>
+                            <button class="btn btn-outline" onclick="resetScenarios()">Reset All</button>
+                            <button class="btn btn-primary">AI Optimize</button>
+                        </div>
+                    </div>
+                    
+                    <div class="scenario-list" id="scenarioList">
+                        <div class="scenario-placeholder">
+                            <div class="placeholder-icon">🔬</div>
+                            <p>Create scenarios to compare different approaches and optimize your environmental impact</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comparison-visualization glass-card">
+                    <div class="viz-header">
+                        <h3>Multi-Scenario Comparison</h3>
+                        <div class="comparison-controls">
+                            <select class="form-control">
+                                <option value="all">All Metrics</option>
+                                <option value="environmental">Environmental Impact</option>
+                                <option value="economic">Economic Performance</option>
+                                <option value="social">Social Impact</option>
+                                <option value="efficiency">Resource Efficiency</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="chart-container" style="position: relative; height: 400px;">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Enterprise Reports Section -->
+    <section id="reports" class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Enterprise Reporting Suite</h2>
+                <p class="section-subtitle">Professional compliance documentation and executive briefings</p>
+            </div>
+
+            <div class="reports-grid">
+                <div class="report-card glass-card premium">
+                    <div class="report-icon">📊</div>
+                    <div class="report-content">
+                        <h3>Executive Summary</h3>
+                        <p>Comprehensive C-suite ready analysis with key insights and strategic recommendations</p>
+                        <ul class="report-features">
+                            <li>Executive dashboard view</li>
+                            <li>Key performance indicators</li>
+                            <li>Strategic recommendations</li>
+                            <li>Risk assessment matrix</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full-width glass-button" onclick="generateReport('executive')">
+                            Generate Executive Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="report-card glass-card premium">
+                    <div class="report-icon">🔬</div>
+                    <div class="report-content">
+                        <h3>Technical Documentation</h3>
+                        <p>Detailed methodology, data sources, and calculation procedures for technical stakeholders</p>
+                        <ul class="report-features">
+                            <li>Complete methodology</li>
+                            <li>Data quality assessment</li>
+                            <li>Model performance metrics</li>
+                            <li>Uncertainty quantification</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full-width glass-button" onclick="generateReport('technical')">
+                            Generate Technical Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="report-card glass-card premium">
+                    <div class="report-icon">✅</div>
+                    <div class="report-content">
+                        <h3>Compliance Documentation</h3>
+                        <p>ISO 14040/14044 compliant reports ready for regulatory submission and auditing</p>
+                        <ul class="report-features">
+                            <li>ISO 14040/14044 compliance</li>
+                            <li>EN 15804 compatibility</li>
+                            <li>GRI Standards alignment</li>
+                            <li>Audit trail documentation</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full-width glass-button" onclick="generateReport('compliance')">
+                            Generate Compliance Report
+                        </button>
+                    </div>
+                </div>
+
+                <div class="report-card glass-card premium">
+                    <div class="report-icon">🌍</div>
+                    <div class="report-content">
+                        <h3>ESG Reporting Package</h3>
+                        <p>Comprehensive ESG metrics and sustainability reporting for investors and stakeholders</p>
+                        <ul class="report-features">
+                            <li>ESG metrics dashboard</li>
+                            <li>Sustainability KPIs</li>
+                            <li>TCFD framework alignment</li>
+                            <li>Investor-ready formats</li>
+                        </ul>
+                        <button class="btn btn-primary btn-full-width glass-button" onclick="generateReport('esg')">
+                            Generate ESG Report
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Report Generation Modal -->
+            <div id="reportModal" class="modal hidden">
+                <div class="modal-content glass-card">
+                    <div class="modal-header">
+                        <h3>Report Generation</h3>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="generation-progress">
+                            <div class="progress-icon">📄</div>
+                            <h4 id="reportType">Generating Report...</h4>
+                            <div class="progress-bar-modal">
+                                <div class="progress-fill-modal"></div>
+                            </div>
+                            <p id="generationStatus">Initializing report generation...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="app.js"></script>
+</body>
+</html>
