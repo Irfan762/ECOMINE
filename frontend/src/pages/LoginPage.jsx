@@ -81,7 +81,7 @@ const LoginPage = () => {
 
           <div className="login-footer">
             <p>Don't have an account? <span className="link">Sign up</span></p>
-            <p className="demo-text">Demo: demo@ecomine.com / demo123</p>
+            <p className="demo-text">Demo:  test@ecomine.com / Test@123</p>
           </div>
         </div>
 
