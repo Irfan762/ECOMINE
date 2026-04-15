@@ -1,0 +1,269 @@
+.reports {
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.reports-header {
+  margin-bottom: 2rem;
+}
+
+.reports-header h2 {
+  font-size: 2rem;
+  color: #00D9FF;
+  margin-bottom: 0.5rem;
+}
+
+.reports-header p {
+  color: #B0B8C1;
+}
+
+.report-generator {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  margin-bottom: 2rem;
+}
+
+.report-generator h3 {
+  color: #00D9FF;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.report-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.report-btn {
+  background: rgba(31, 184, 205, 0.08);
+  border: 2px solid rgba(0, 217, 255, 0.3);
+  border-radius: 12px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  color: #E2E8F0;
+  font-weight: 600;
+}
+
+.report-btn:hover:not(:disabled) {
+  border-color: rgba(0, 217, 255, 0.8);
+  background: rgba(31, 184, 205, 0.15);
+  transform: translateY(-4px);
+}
+
+.report-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.report-btn .icon {
+  font-size: 2rem;
+}
+
+.report-btn .title {
+  font-size: 0.95rem;
+  color: #00D9FF;
+}
+
+.report-btn .desc {
+  font-size: 0.8rem;
+  color: #718096;
+  font-weight: 400;
+}
+
+.iso-btn:hover:not(:disabled),
+.cbam-btn:hover:not(:disabled),
+.brsr-btn:hover:not(:disabled),
+.circ-btn:hover:not(:disabled) {
+  background: rgba(0, 217, 255, 0.1);
+}
+
+.generating-status {
+  background: rgba(31, 184, 205, 0.08);
+  border: 2px solid rgba(0, 217, 255, 0.3);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+  margin-bottom: 2rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 217, 255, 0.2);
+  border-top: 3px solid #00D9FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.generating-status p {
+  color: #E2E8F0;
+  font-weight: 600;
+}
+
+.reports-list {
+  margin-top: 2rem;
+}
+
+.reports-list h3 {
+  color: #00D9FF;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.report-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.report-card {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.report-card:hover {
+  border-color: rgba(0, 217, 255, 0.5);
+  transform: translateY(-4px);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+}
+
+.card-header h4 {
+  margin: 0;
+  color: #E2E8F0;
+}
+
+.status-badge {
+  background: rgba(0, 217, 255, 0.2);
+  color: #00D9FF;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.card-body {
+  padding: 1rem 1.5rem;
+}
+
+.card-body p {
+  color: #B0B8C1;
+  font-size: 0.9rem;
+  margin: 0.5rem 0;
+}
+
+.card-footer {
+  padding: 1rem 1.5rem;
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid rgba(0, 217, 255, 0.1);
+}
+
+.btn-download,
+.btn-delete {
+  background: none;
+  border: none;
+  color: #00D9FF;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  flex: 1;
+  text-align: center;
+}
+
+.btn-delete {
+  color: #718096;
+}
+
+.btn-download:hover {
+  color: #1FB8CD;
+}
+
+.btn-delete:hover {
+  color: #F56565;
+}
+
+.compliance-info {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  margin-top: 2rem;
+}
+
+.compliance-info h3 {
+  color: #00D9FF;
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.info-card {
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.info-card h4 {
+  color: #00D9FF;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.info-card p {
+  color: #B0B8C1;
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.empty-state {
+  color: #718096;
+  text-align: center;
+  padding: 2rem;
+  background: rgba(31, 184, 205, 0.05);
+  border-radius: 12px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,162 @@
+.app-page {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(135deg, #0B1426 0%, #080F1F 100%);
+}
+
+.app-nav {
+  width: 280px;
+  background: rgba(8, 15, 31, 0.8);
+  backdrop-filter: blur(20px);
+  border-right: 1px solid rgba(0, 217, 255, 0.1);
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  overflow-y: auto;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #00D9FF;
+}
+
+.logo-icon {
+  font-size: 2rem;
+}
+
+.logo-text {
+  background: linear-gradient(135deg, #1FB8CD, #00D9FF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+}
+
+.nav-item {
+  background: none;
+  border: none;
+  color: #B0B8C1;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.nav-item:hover {
+  background: rgba(0, 217, 255, 0.1);
+  color: #E2E8F0;
+}
+
+.nav-item.active {
+  background: rgba(31, 184, 205, 0.15);
+  color: #00D9FF;
+  border-left-color: #00D9FF;
+  font-weight: 600;
+}
+
+.nav-user {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(0, 217, 255, 0.1);
+}
+
+.user-name {
+  color: #E2E8F0;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1FB8CD, #00D9FF);
+  color: #0B1426;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.app-main {
+  flex: 1;
+  overflow-y: auto;
+  background: linear-gradient(135deg, #0B1426 0%, #080F1F 100%);
+}
+
+.app-main::-webkit-scrollbar {
+  width: 8px;
+}
+
+.app-main::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.app-main::-webkit-scrollbar-thumb {
+  background: rgba(0, 217, 255, 0.3);
+  border-radius: 4px;
+}
+
+.app-main::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 217, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .app-page {
+    flex-direction: column;
+  }
+
+  .app-nav {
+    width: 100%;
+    padding: 1rem;
+    flex-direction: row;
+    gap: 1rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+    align-items: center;
+  }
+
+  .nav-menu {
+    flex-direction: row;
+    flex: 1;
+    gap: 0;
+  }
+
+  .nav-item {
+    flex: 1;
+    border-left: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    padding: 0.5rem;
+  }
+
+  .nav-item.active {
+    border-left: none;
+    border-bottom-color: #00D9FF;
+  }
+
+  .nav-user {
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .user-name {
+    display: none;
+  }
+}

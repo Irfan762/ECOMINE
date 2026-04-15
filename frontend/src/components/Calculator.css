@@ -1,0 +1,158 @@
+.calculator {
+  padding: 2rem;
+  animation: fadeIn 0.5s ease-in;
+}
+
+.calculator-header {
+  margin-bottom: 2rem;
+}
+
+.calculator-header h2 {
+  font-size: 2rem;
+  color: #00D9FF;
+  margin-bottom: 0.5rem;
+}
+
+.calculator-header p {
+  color: #B0B8C1;
+}
+
+.calculator-form {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  backdrop-filter: blur(20px);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-section label {
+  color: #E2E8F0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.form-section input,
+.form-section select {
+  background: rgba(11, 20, 38, 0.8);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #E2E8F0;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+}
+
+.form-section input:focus,
+.form-section select:focus {
+  outline: none;
+  border-color: #00D9FF;
+  background: rgba(11, 20, 38, 0.9);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+.form-section input:disabled,
+.form-section select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.form-section small {
+  color: #718096;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+.btn-submit {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, #1FB8CD, #00D9FF);
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  color: #0B1426;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-submit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+}
+
+.btn-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-submit.processing {
+  background: rgba(0, 217, 255, 0.3);
+}
+
+.processing-indicator {
+  background: rgba(31, 184, 205, 0.08);
+  border: 2px solid rgba(0, 217, 255, 0.3);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  backdrop-filter: blur(20px);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(0, 217, 255, 0.2);
+  border-top: 3px solid #00D9FF;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.processing-indicator p {
+  color: #E2E8F0;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.progress-steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.step {
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.75rem;
+  color: #B0B8C1;
+  font-size: 0.85rem;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
