@@ -1,0 +1,11 @@
+calculation_id,user_email,project_name,category,metal_used,production_type,total_co2_kg,energy_kwh,water_liters,cost_estimate,completion_date,export_format,calculation_duration_sec
+CALC001,student@jspm.com,Manufacturing Process A,Industrial,steel,recycled,2450,18500,8200,65000,2026-04-22,pdf,45
+CALC002,student@jspm.com,Product Development B,Consumer Goods,aluminum,recycled,1890,8900,4500,42000,2026-04-20,excel,38
+CALC003,research@jspm.com,Supply Chain Analysis,Logistics,copper,primary,3120,25600,12800,185000,2026-04-18,pdf,52
+CALC004,faculty@jspm.com,Sustainability Initiative,Environmental,steel,primary,1560,15200,7800,72000,2026-04-15,excel,41
+CALC005,student@jspm.com,Automotive Component,Manufacturing,aluminum,primary,2890,14500,7200,98000,2026-04-14,pdf,48
+CALC006,research@jspm.com,Electronics Assembly,Manufacturing,copper,recycled,1540,12300,6100,68000,2026-04-13,excel,39
+CALC007,faculty@jspm.com,Construction Materials,Infrastructure,steel,recycled,2150,16800,8400,55000,2026-04-12,pdf,46
+CALC008,student@jspm.com,Mining Operations,Industrial,aluminum,primary,5200,22400,18500,145000,2026-04-11,excel,65
+CALC009,research@jspm.com,Chemical Processing,Industrial,copper,primary,3850,28900,14200,195000,2026-04-10,pdf,58
+CALC010,faculty@jspm.com,Recycling Facility,Environmental,steel,recycled,890,8200,4100,32000,2026-04-09,excel,32

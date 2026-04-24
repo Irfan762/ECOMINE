@@ -1,0 +1,16 @@
+metal_type,production_capacity_tonnes,ore_grade,energy_mix,location_factor,processing_route,energy_consumption_kwh,co2_emissions_kg,water_usage_liters,waste_generation_kg,circularity_index,confidence_score
+aluminum,125000,2.5,1.0,1.18,pyrometallurgy,15.2,14.1,1450,125,18,0.92
+aluminum,85000,2.8,1.35,1.12,pyrometallurgy,16.5,13.8,1650,140,22,0.89
+aluminum,200000,2.3,0.42,0.87,pyrometallurgy,13.8,10.2,950,95,45,0.96
+aluminum,150000,2.4,0.64,0.64,pyrometallurgy,12.5,9.1,850,82,52,0.94
+copper,95000,0.8,1.0,1.18,hydrometallurgy,22.5,3.8,1050,180,15,0.91
+copper,120000,0.85,1.35,1.12,hydrometallurgy,24.8,4.2,1200,205,18,0.88
+copper,180000,0.75,0.42,0.87,hydrometallurgy,18.2,2.9,850,145,38,0.95
+copper,140000,0.78,0.64,0.64,hybrid,19.8,3.1,920,160,42,0.93
+steel,175000,58,1.0,1.18,pyrometallurgy,21.2,2.2,750,95,25,0.90
+steel,210000,60,1.35,1.12,pyrometallurgy,22.8,2.4,820,108,22,0.87
+steel,250000,56,0.42,0.87,pyrometallurgy,19.5,1.9,680,85,42,0.94
+steel,190000,57,0.64,0.64,advanced,18.2,1.75,620,75,48,0.92
+aluminum,110000,2.5,1.0,1.28,pyrometallurgy,16.8,15.2,1580,138,16,0.88
+copper,115000,0.82,1.0,1.28,hybrid,23.2,4.1,1120,192,16,0.89
+steel,165000,59,1.0,1.28,pyrometallurgy,22.5,2.5,810,102,23,0.86

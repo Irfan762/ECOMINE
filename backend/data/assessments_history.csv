@@ -1,0 +1,16 @@
+assessment_id,user_id,metal_type,production_route,location,ore_grade,energy_kwh,co2_kg,water_liters,waste_kg,circularity_index,model_used,data_quality,created_at,status
+ASSESS001,USER001,aluminum,primary,china,2.5,15.2,14.1,1450,125,18,Ensemble (RF + NN + GB),High,2026-04-22T10:30:00Z,completed
+ASSESS002,USER001,copper,recycled,europe,0.75,2.8,0.9,240,20,94,Ensemble (RF + NN + GB),High,2026-04-21T14:15:00Z,completed
+ASSESS003,USER002,steel,primary,india,60,22.8,2.4,820,108,22,Random Forest,Medium,2026-04-20T09:45:00Z,completed
+ASSESS004,USER002,aluminum,recycled,china,2.5,1.2,0.8,180,8,92,Neural Network,High,2026-04-19T16:20:00Z,completed
+ASSESS005,USER003,copper,primary,europe,0.75,18.2,2.9,850,145,38,Gradient Boosting,High,2026-04-18T11:00:00Z,completed
+ASSESS006,USER003,steel,recycled,nordics,56,4.9,0.7,180,12,91,Ensemble (RF + NN + GB),High,2026-04-17T13:30:00Z,completed
+ASSESS007,USER001,aluminum,primary,europe,2.3,13.8,10.2,950,95,45,Random Forest,High,2026-04-16T10:15:00Z,completed
+ASSESS008,USER004,copper,primary,china,0.8,22.5,3.8,1050,180,15,XGBoost,Medium,2026-04-15T15:45:00Z,completed
+ASSESS009,USER004,steel,primary,europe,56,19.5,1.9,680,85,42,Ensemble (RF + NN + GB),High,2026-04-14T08:30:00Z,completed
+ASSESS010,USER005,aluminum,recycled,india,2.8,1.5,1.1,220,10,88,Neural Network,High,2026-04-13T12:00:00Z,completed
+ASSESS011,USER005,copper,recycled,india,0.85,3.8,1.5,320,28,87,Random Forest,Medium,2026-04-12T17:20:00Z,completed
+ASSESS012,USER002,steel,recycled,china,58,5.8,0.9,210,15,88,Ensemble (RF + NN + GB),High,2026-04-11T11:45:00Z,completed
+ASSESS013,USER001,aluminum,primary,india,2.8,16.5,13.8,1650,140,22,Gradient Boosting,High,2026-04-10T14:30:00Z,completed
+ASSESS014,USER003,copper,recycled,europe,0.75,2.8,0.9,240,20,94,XGBoost,High,2026-04-09T09:15:00Z,completed
+ASSESS015,USER004,steel,recycled,europe,56,4.9,0.7,180,12,91,Random Forest,High,2026-04-08T13:00:00Z,completed
