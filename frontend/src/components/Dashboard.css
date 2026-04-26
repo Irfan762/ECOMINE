@@ -7,6 +7,14 @@
   margin-bottom: 2rem;
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
 .dashboard-header h2 {
   font-size: 2rem;
   color: #00D9FF;
@@ -16,6 +24,38 @@
 .dashboard-header p {
   color: #B0B8C1;
   font-size: 0.95rem;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.refresh-btn {
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: #00D9FF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.refresh-btn:hover {
+  background: rgba(0, 217, 255, 0.2);
+  border-color: #00D9FF;
+  transform: rotate(180deg);
+}
+
+.refresh-btn:active {
+  transform: rotate(360deg);
+}
+
+.last-refresh {
+  color: #718096;
+  font-size: 0.8rem;
 }
 
 .kpi-grid {
@@ -33,13 +73,31 @@
   backdrop-filter: blur(20px);
   display: flex;
   flex-direction: column;
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpi-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.kpi-card:hover::before {
+  left: 100%;
 }
 
 .kpi-card:hover {
-  border-color: rgba(0, 217, 255, 0.5);
-  background: rgba(31, 184, 205, 0.12);
-  transform: translateY(-4px);
+  border-color: rgba(0, 217, 255, 0.6);
+  background: rgba(31, 184, 205, 0.15);
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 40px rgba(0, 217, 255, 0.2);
 }
 
 .kpi-header {
@@ -69,6 +127,21 @@
   color: #00D9FF;
   font-weight: 700;
   margin: 0.5rem 0;
+}
+
+.animated-number {
+  animation: countUp 1.5s ease-out;
+}
+
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .kpi-range {
@@ -113,6 +186,160 @@
   font-weight: 500;
 }
 
+.assessment-selector {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.assessment-selector label {
+  color: #B0B8C1;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.assessment-selector select {
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  color: #E2E8F0;
+  font-size: 0.9rem;
+  flex: 1;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+.assessment-selector select:focus {
+  outline: none;
+  border-color: #00D9FF;
+}
+
+.recent-assessments {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  backdrop-filter: blur(20px);
+}
+
+.recent-assessments h3 {
+  color: #00D9FF;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.assessment-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.assessment-item {
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.15);
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.assessment-item::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.2));
+  transition: width 0.3s;
+}
+
+.assessment-item:hover::after {
+  width: 100%;
+}
+
+.assessment-item:hover {
+  border-color: rgba(0, 217, 255, 0.5);
+  background: rgba(0, 217, 255, 0.12);
+  transform: translateX(8px) scale(1.02);
+  box-shadow: 0 10px 30px rgba(0, 217, 255, 0.15);
+}
+
+.assessment-item.active {
+  border-color: #00D9FF;
+  background: rgba(0, 217, 255, 0.18);
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.3);
+}
+
+.assessment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.assessment-metal {
+  color: #00D9FF;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.assessment-date {
+  color: #718096;
+  font-size: 0.8rem;
+}
+
+.assessment-metrics {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #B0B8C1;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.chart-card {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(20px);
+  animation: slideIn 0.5s ease-out;
+}
+
+.chart-card h3 {
+  color: #00D9FF;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -121,5 +348,55 @@
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.skeleton-card {
+  background: rgba(31, 184, 205, 0.08);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+  border-radius: 12px;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.skeleton-header {
+  height: 20px;
+  background: linear-gradient(90deg, rgba(0, 217, 255, 0.1) 25%, rgba(0, 217, 255, 0.2) 50%, rgba(0, 217, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-value {
+  height: 40px;
+  background: linear-gradient(90deg, rgba(0, 217, 255, 0.1) 25%, rgba(0, 217, 255, 0.2) 50%, rgba(0, 217, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+.skeleton-range {
+  height: 16px;
+  background: linear-gradient(90deg, rgba(0, 217, 255, 0.1) 25%, rgba(0, 217, 255, 0.2) 50%, rgba(0, 217, 255, 0.1) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
   }
 }

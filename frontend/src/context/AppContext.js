@@ -11,6 +11,24 @@ export const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
+  const fetchInitialData = useCallback(async () => {
+    try {
+      const { assessmentService, scenarioService } = await import('../services/assessmentService');
+      
+      // Fetch assessments
+      const assessmentsRes = await assessmentService.getAssessments();
+      if (assessmentsRes.data.length > 0) {
+        setCurrentAssessment(assessmentsRes.data[0]);
+      }
+      
+      // Fetch scenarios
+      const scenariosRes = await scenarioService.getScenarios();
+      setScenarios(scenariosRes.data);
+    } catch (error) {
+      console.error('Failed to fetch initial data:', error);
+    }
+  }, []);
+
   const login = useCallback(async (email, password) => {
     setIsLoading(true);
     setError(null);
@@ -21,6 +39,10 @@ export const AppProvider = ({ children }) => {
       localStorage.setItem('token', token);
       setUser(userData);
       setIsAuthenticated(true);
+      
+      // Fetch initial data after login
+      await fetchInitialData();
+      
       return userData;
     } catch (err) {
       const message = err.response?.data?.error || 'Login failed';
@@ -29,7 +51,7 @@ export const AppProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [fetchInitialData]);
 
   const register = useCallback(async (name, email, password, company) => {
     setIsLoading(true);
@@ -41,6 +63,10 @@ export const AppProvider = ({ children }) => {
       localStorage.setItem('token', token);
       setUser(userData);
       setIsAuthenticated(true);
+      
+      // Fetch initial data after registration
+      await fetchInitialData();
+      
       return userData;
     } catch (err) {
       const message = err.response?.data?.error || 'Registration failed';
@@ -49,7 +75,7 @@ export const AppProvider = ({ children }) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  }, [fetchInitialData]);
 
   const logout = useCallback(() => {
     localStorage.removeItem('token');

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { reportService } from '../services/assessmentService';
 import './Reports.css';
@@ -7,6 +7,22 @@ const Reports = () => {
   const { currentAssessment, isLoading } = useContext(AppContext);
   const [generatingReport, setGeneratingReport] = useState(null);
   const [reports, setReports] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchReports();
+  }, []);
+
+  const fetchReports = async () => {
+    try {
+      const response = await reportService.getReports();
+      setReports(response.data);
+    } catch (error) {
+      console.error('Failed to fetch reports:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleGenerateReport = async (reportType) => {
     if (!currentAssessment) return;
@@ -25,6 +41,17 @@ const Reports = () => {
       setGeneratingReport(null);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="reports">
+        <section className="reports-header">
+          <h2>Reports 📄</h2>
+          <p>Loading reports...</p>
+        </section>
+      </div>
+    );
+  }
 
   if (!currentAssessment) {
     return (

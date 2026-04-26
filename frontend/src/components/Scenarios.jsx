@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { scenarioService } from '../services/assessmentService';
 import './Scenarios.css';
@@ -11,6 +11,26 @@ const Scenarios = () => {
     energyMix: 'mixed_grid',
     processingRoute: 'pyrometallurgy'
   });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchScenarios();
+  }, [currentAssessment]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const fetchScenarios = async () => {
+    if (!currentAssessment) {
+      setLoading(false);
+      return;
+    }
+    try {
+      const response = await scenarioService.getScenarios();
+      setScenarios(response.data);
+    } catch (error) {
+      console.error('Failed to fetch scenarios:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -64,6 +84,17 @@ const Scenarios = () => {
       console.error('Failed to delete scenario:', error);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="scenarios">
+        <section className="scenarios-header">
+          <h2>Scenarios 🎯</h2>
+          <p>Loading scenarios...</p>
+        </section>
+      </div>
+    );
+  }
 
   if (!currentAssessment) {
     return (
