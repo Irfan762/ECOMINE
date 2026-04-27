@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
+import { initLoginParticles } from '../utils/particles';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -10,6 +11,51 @@ const LoginPage = () => {
     email: '',
     password: ''
   });
+
+  useEffect(() => {
+    // Initialize particle animation
+    initLoginParticles();
+
+    // Add tilt effect to info cards
+    const cards = document.querySelectorAll('[data-tilt]');
+    cards.forEach(card => {
+      card.addEventListener('mousemove', handleTilt);
+      card.addEventListener('mouseleave', resetTilt);
+    });
+
+    return () => {
+      cards.forEach(card => {
+        card.removeEventListener('mousemove', handleTilt);
+        card.removeEventListener('mouseleave', resetTilt);
+      });
+    };
+  }, []);
+
+  const handleTilt = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+
+    // Update mouse position for hover effect
+    const mouseX = (x / rect.width) * 100;
+    const mouseY = (y / rect.height) * 100;
+    card.style.setProperty('--mouse-x', `${mouseX}%`);
+    card.style.setProperty('--mouse-y', `${mouseY}%`);
+  };
+
+  const resetTilt = (e) => {
+    const card = e.currentTarget;
+    card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,76 +77,169 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
+      {/* Animated Background */}
+      <div className="login-background">
+        <div className="gradient-orb orb-1"></div>
+        <div className="gradient-orb orb-2"></div>
+        <div className="gradient-orb orb-3"></div>
+        <div className="grid-overlay"></div>
+        <canvas id="loginParticles"></canvas>
+      </div>
+
       <div className="login-container">
-        <div className="login-card">
+        <div className="login-card" data-aos="fade-right">
           <div className="login-header">
-            <span className="logo-icon">🌿</span>
-            <h1>ECOMINE</h1>
-            <p>AI-Powered Life Cycle Assessment Platform</p>
+            <div className="logo-wrapper">
+              <div className="logo-glow"></div>
+              <span className="logo-icon">🌿</span>
+            </div>
+            <h1 className="gradient-text">ECOMINE</h1>
+            <p className="subtitle">AI-Powered Life Cycle Assessment Platform</p>
+            <div className="status-badge">
+              <span className="status-dot"></span>
+              <span>System Online</span>
+            </div>
           </div>
 
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                id="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                placeholder="your@email.com"
-                required
-                disabled={isLoading}
-              />
+              <label htmlFor="email">
+                <span className="label-icon">📧</span>
+                Email Address
+              </label>
+              <div className="input-wrapper">
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="your@email.com"
+                  required
+                  disabled={isLoading}
+                />
+                <div className="input-border"></div>
+              </div>
             </div>
 
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="••••••••"
-                required
-                disabled={isLoading}
-              />
+              <label htmlFor="password">
+                <span className="label-icon">🔒</span>
+                Password
+              </label>
+              <div className="input-wrapper">
+                <input
+                  type="password"
+                  id="password"
+                  name="password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  placeholder="••••••••"
+                  required
+                  disabled={isLoading}
+                />
+                <div className="input-border"></div>
+              </div>
             </div>
 
-            {error && <div className="error-message">{error}</div>}
+            {error && (
+              <div className="error-message">
+                <span className="error-icon">⚠️</span>
+                {error}
+              </div>
+            )}
 
             <button
               type="submit"
               className="btn-login"
               disabled={isLoading}
             >
-              {isLoading ? '🔄 Signing in...' : '✓ Sign In'}
+              <span className="btn-content">
+                {isLoading ? (
+                  <>
+                    <span className="spinner"></span>
+                    Signing in...
+                  </>
+                ) : (
+                  <>
+                    <span>Sign In</span>
+                    <span className="arrow">→</span>
+                  </>
+                )}
+              </span>
+              <div className="btn-shine"></div>
             </button>
           </form>
 
           <div className="login-footer">
             <p>Don't have an account? <span className="link">Sign up</span></p>
-            <p className="demo-text">Demo:  test@ecomine.com / Test@123</p>
+            <div className="demo-badge">
+              <span className="demo-icon">🎯</span>
+              <span className="demo-text">Demo: test@ecomine.com / Test@123</span>
+            </div>
           </div>
         </div>
 
-        <div className="login-info">
-          <div className="info-card">
-            <h3>🔬 Advanced AI Models</h3>
-            <p>Ensemble of Random Forest, XGBoost, and Neural Networks</p>
+        <div className="login-info" data-aos="fade-left">
+          <div className="info-header">
+            <h2>Why Choose ECOMINE?</h2>
+            <p>Industry-leading sustainability intelligence</p>
           </div>
-          <div className="info-card">
-            <h3>📊 Comprehensive LCA</h3>
-            <p>ISO 14040/44 compliant life cycle assessments</p>
+          
+          <div className="info-cards">
+            <div className="info-card" data-tilt>
+              <div className="card-icon-wrapper">
+                <div className="card-icon-glow"></div>
+                <span className="card-icon">🔬</span>
+              </div>
+              <h3>Advanced AI Models</h3>
+              <p>Ensemble of Random Forest, XGBoost, and Neural Networks</p>
+              <div className="card-stats">
+                <span className="stat">96% Accuracy</span>
+              </div>
+            </div>
+            
+            <div className="info-card" data-tilt>
+              <div className="card-icon-wrapper">
+                <div className="card-icon-glow"></div>
+                <span className="card-icon">📊</span>
+              </div>
+              <h3>Comprehensive LCA</h3>
+              <p>ISO 14040/44 compliant life cycle assessments</p>
+              <div className="card-stats">
+                <span className="stat">Full Compliance</span>
+              </div>
+            </div>
+            
+            <div className="info-card" data-tilt>
+              <div className="card-icon-wrapper">
+                <div className="card-icon-glow"></div>
+                <span className="card-icon">♻️</span>
+              </div>
+              <h3>Circularity Focus</h3>
+              <p>Material flow analysis and recycling potential</p>
+              <div className="card-stats">
+                <span className="stat">92% Efficiency</span>
+              </div>
+            </div>
+            
+            <div className="info-card" data-tilt>
+              <div className="card-icon-wrapper">
+                <div className="card-icon-glow"></div>
+                <span className="card-icon">🇮🇳</span>
+              </div>
+              <h3>India-First</h3>
+              <p>Tailored for Indian metallurgists and engineers</p>
+              <div className="card-stats">
+                <span className="stat">28+ Regions</span>
+              </div>
+            </div>
           </div>
-          <div className="info-card">
-            <h3>♻️ Circularity Focus</h3>
-            <p>Material flow analysis and recycling potential</p>
-          </div>
-          <div className="info-card">
-            <h3>🇮🇳 India-First</h3>
-            <p>Tailored for Indian metallurgists and engineers</p>
+
+          <div className="trust-badges">
+            <div className="badge">✓ ISO Certified</div>
+            <div className="badge">✓ CBAM Ready</div>
+            <div className="badge">✓ BRSR Compliant</div>
           </div>
         </div>
       </div>

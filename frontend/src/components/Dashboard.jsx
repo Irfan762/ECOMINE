@@ -1,8 +1,33 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { assessmentService } from '../services/assessmentService';
-import { Line, Doughnut, Bar } from 'react-chartjs-2';
+import { Line, Doughnut } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+} from 'chart.js';
 import './Dashboard.css';
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  ArcElement,
+  Title,
+  Tooltip,
+  Legend,
+  Filler
+);
 
 const Dashboard = () => {
   const { user, currentAssessment, setCurrentAssessment } = useContext(AppContext);
@@ -193,6 +218,7 @@ const Dashboard = () => {
         <div className="chart-card">
           <h3>Assessment Trends</h3>
           <Line 
+            key={`line-${currentAssessment._id}`}
             data={{
               labels: assessments.slice(-7).map(a => new Date(a.createdAt).toLocaleDateString()),
               datasets: [{
@@ -206,10 +232,21 @@ const Dashboard = () => {
             }}
             options={{
               responsive: true,
-              plugins: { legend: { labels: { color: '#E2E8F0' } } },
+              maintainAspectRatio: true,
+              plugins: { 
+                legend: { 
+                  labels: { color: '#E2E8F0' } 
+                } 
+              },
               scales: {
-                x: { ticks: { color: '#B0B8C1' }, grid: { color: 'rgba(255,255,255,0.1)' } },
-                y: { ticks: { color: '#B0B8C1' }, grid: { color: 'rgba(255,255,255,0.1)' } }
+                x: { 
+                  ticks: { color: '#B0B8C1' }, 
+                  grid: { color: 'rgba(255,255,255,0.1)' } 
+                },
+                y: { 
+                  ticks: { color: '#B0B8C1' }, 
+                  grid: { color: 'rgba(255,255,255,0.1)' } 
+                }
               }
             }}
           />
@@ -217,6 +254,7 @@ const Dashboard = () => {
         <div className="chart-card">
           <h3>Metal Distribution</h3>
           <Doughnut 
+            key={`doughnut-${assessments.length}`}
             data={{
               labels: ['Aluminum', 'Copper', 'Steel'],
               datasets: [{
@@ -231,7 +269,12 @@ const Dashboard = () => {
             }}
             options={{
               responsive: true,
-              plugins: { legend: { labels: { color: '#E2E8F0' } } }
+              maintainAspectRatio: true,
+              plugins: { 
+                legend: { 
+                  labels: { color: '#E2E8F0' } 
+                } 
+              }
             }}
           />
         </div>
