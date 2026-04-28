@@ -159,6 +159,22 @@ document.addEventListener('DOMContentLoaded', () => {
     const statNumbers = document.querySelectorAll('.stat-number');
     statNumbers.forEach(el => observer.observe(el));
 
+    // Observe impact numbers with data-count attribute
+    const impactNumbers = document.querySelectorAll('.impact-number[data-count]');
+    impactNumbers.forEach(el => {
+        const observerCallback = (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !el.classList.contains('counted')) {
+                    el.classList.add('counted');
+                    const target = parseInt(el.dataset.count);
+                    animateCounter(el, target, 2500);
+                }
+            });
+        };
+        const impactObserver = new IntersectionObserver(observerCallback, observerOptions);
+        impactObserver.observe(el);
+    });
+
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
