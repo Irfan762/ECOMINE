@@ -1,109 +1,95 @@
 const Assessment = require('../models/Assessment');
+const LCA_ENGINE = require('../utils/lcaEngine');
 
-// Prediction factors database
-const METAL_DATA = {
-  aluminum: {
-    primary: { energy: [13.2, 16.8], co2: [11.8, 15.2], water: [1150, 1950] },
-    recycled: { energy: [0.7, 1.8], co2: [0.4, 1.4], water: [120, 320] }
-  },
-  copper: {
-    primary: { energy: [18.5, 28.2], co2: [2.6, 5.1], water: [850, 1350] },
-    recycled: { energy: [2.1, 4.8], co2: [0.8, 2.2], water: [180, 420] }
-  },
-  steel: {
-    primary: { energy: [18.8, 24.5], co2: [1.8, 2.6], water: [580, 920] },
-    recycled: { energy: [4.2, 7.8], co2: [0.6, 1.2], water: [145, 285] }
-  }
-};
-
-const FACTORS = {
-  energyMix: { coal_heavy: 1.35, mixed_grid: 1.0, renewable_heavy: 0.42 },
-  location: { china: 1.18, india: 1.12, europe: 0.87, nordics: 0.64, gcc: 1.28 },
-  processing: { pyrometallurgy: 1.0, hydrometallurgy: 0.78, hybrid: 0.89 }
-};
-
-// Calculate Assessment Result
-const calculateResults = (req) => {
-  const { metalType, oreGrade, location, energyMix, processingRoute, productionCapacity } = req.body;
-  
-  const metalData = METAL_DATA[metalType];
-  const baseData = metalData.primary;
-  
-  // Apply multipliers
-  let energyModifier = 1.0;
-  let co2Modifier = 1.0;
-  
-  // Ore grade impact
-  energyModifier *= Math.pow(2.5 / oreGrade, 0.6);
-  co2Modifier *= Math.pow(2.5 / oreGrade, 0.6);
-  
-  // Energy mix
-  energyModifier *= FACTORS.energyMix[energyMix];
-  co2Modifier *= FACTORS.energyMix[energyMix];
-  
-  // Location
-  co2Modifier *= FACTORS.location[location];
-  
-  // Processing
-  energyModifier *= FACTORS.processing[processingRoute];
-  
-  // Scale
-  const scaleFactor = productionCapacity > 100000 ? 0.88 : 
-                     productionCapacity > 50000 ? 1.0 : 1.25;
-  energyModifier *= scaleFactor;
-  
-  // Calculate values
-  const energyMid = (baseData.energy[0] + baseData.energy[1]) / 2 * energyModifier;
-  const co2Mid = (baseData.co2[0] + baseData.co2[1]) / 2 * co2Modifier;
-  const waterMid = (baseData.water[0] + baseData.water[1]) / 2;
-  
-  return {
-    energy: {
-      value: parseFloat(energyMid.toFixed(1)),
-      range: [parseFloat((energyMid * 0.92).toFixed(1)), parseFloat((energyMid * 1.08).toFixed(1))],
-      confidence: 94
-    },
-    co2: {
-      value: parseFloat(co2Mid.toFixed(1)),
-      range: [parseFloat((co2Mid * 0.92).toFixed(1)), parseFloat((co2Mid * 1.08).toFixed(1))],
-      confidence: 94
-    },
-    water: {
-      value: parseFloat(waterMid.toFixed(1)),
-      range: [parseFloat((waterMid * 0.92).toFixed(1)), parseFloat((waterMid * 1.08).toFixed(1))],
-      confidence: 89
-    },
-    circularity: Math.floor(Math.random() * (95 - 75) + 75)
+// Location to grid zone mapper
+function mapLocationToGrid(location) {
+  const map = {
+    'india': 'india_national',
+    'india_jharkhand': 'india_coal_belt',
+    'india_odisha': 'india_coal_belt',
+    'india_chhattisgarh': 'india_coal_belt',
+    'india_karnataka': 'india_south',
+    'india_tamilnadu': 'india_south',
+    'india_gujarat': 'india_west',
+    'india_maharashtra': 'india_west',
+    'india_up': 'india_north',
+    'india_rajasthan': 'india_north',
+    'india_northeast': 'india_northeast',
+    'china': 'china',
+    'europe': 'europe',
+    'nordics': 'nordics',
+    'gcc': 'gcc',
+    'usa': 'usa'
   };
-};
+  return map[location] || 'india_national';
+}
 
-// Create Assessment
+// Create Assessment with Full LCA Engine
 exports.createAssessment = async (req, res) => {
   try {
-    const results = calculateResults(req);
-    
+    // Map frontend form fields to LCA engine inputs
+    const lcaInputs = {
+      metalType: req.body.metalType,                          // 'aluminum'|'copper'|'steel'
+      productionRoute: req.body.productionRoute || 'primary', // 'primary'|'recycled'
+      oreGrade: parseFloat(req.body.oreGrade),
+      gridZone: mapLocationToGrid(req.body.location),
+      transportMode: req.body.transportMode || 'rail',
+      processingRoute: req.body.processingRoute || 'pyrometallurgy',
+      productionCapacity: parseInt(req.body.productionCapacity),
+      recycledContentPct: parseFloat(req.body.recycledContentPct || 0),
+      recycleRateEOL: parseFloat(req.body.recycleRateEOL || 0),
+      productLifeYrs: parseInt(req.body.productLifeYrs || 10),
+      dataQualityScore: req.body.dataQualityScore || 3,
+      carbonCreditPriceUSD: parseFloat(req.body.carbonCreditPriceUSD || 8)
+    };
+
+    // Run full LCA calculation
+    const lcaResult = LCA_ENGINE.runFullLCA(lcaInputs);
+
     const assessment = new Assessment({
       userId: req.userId,
       ...req.body,
-      results,
-      modelUsed: 'Ensemble (RF + NN + GB)',
-      dataQuality: 'High'
+      results: lcaResult,
+      modelUsed: lcaResult.modelUsed,
+      dataQuality: lcaResult.dataQuality
     });
 
     await assessment.save();
     res.status(201).json(assessment);
   } catch (error) {
-    // Return mock assessment if database unavailable
-    const results = calculateResults(req);
-    res.status(201).json({
-      _id: 'mock-' + Date.now(),
-      ...req.body,
-      results,
-      modelUsed: 'Ensemble (RF + NN + GB)',
-      dataQuality: 'High',
-      createdAt: new Date(),
-      message: 'Mock assessment (database unavailable)'
-    });
+    console.error('LCA Calculation Error:', error);
+    
+    // Return mock assessment with LCA engine if database unavailable
+    try {
+      const lcaInputs = {
+        metalType: req.body.metalType,
+        productionRoute: req.body.productionRoute || 'primary',
+        oreGrade: parseFloat(req.body.oreGrade),
+        gridZone: mapLocationToGrid(req.body.location),
+        transportMode: req.body.transportMode || 'rail',
+        processingRoute: req.body.processingRoute || 'pyrometallurgy',
+        productionCapacity: parseInt(req.body.productionCapacity),
+        recycledContentPct: parseFloat(req.body.recycledContentPct || 0),
+        recycleRateEOL: parseFloat(req.body.recycleRateEOL || 0),
+        productLifeYrs: parseInt(req.body.productLifeYrs || 10),
+        dataQualityScore: req.body.dataQualityScore || 3,
+        carbonCreditPriceUSD: parseFloat(req.body.carbonCreditPriceUSD || 8)
+      };
+
+      const lcaResult = LCA_ENGINE.runFullLCA(lcaInputs);
+
+      res.status(201).json({
+        _id: 'mock-' + Date.now(),
+        ...req.body,
+        results: lcaResult,
+        modelUsed: lcaResult.modelUsed,
+        dataQuality: lcaResult.dataQuality,
+        createdAt: new Date(),
+        message: 'Mock assessment (database unavailable)'
+      });
+    } catch (lcaError) {
+      res.status(500).json({ error: lcaError.message });
+    }
   }
 };
 

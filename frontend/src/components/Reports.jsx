@@ -31,14 +31,64 @@ const Reports = () => {
     
     try {
       const response = await reportService.generateReport(currentAssessment._id, reportType);
-      setReports([...reports, response.data]);
       
-      setTimeout(() => {
+      // Wait for report to be completed (poll for status)
+      setTimeout(async () => {
+        try {
+          const updatedReport = await reportService.getReport(response.data._id);
+          setReports([updatedReport.data, ...reports]);
+        } catch (error) {
+          console.error('Failed to fetch updated report:', error);
+          setReports([response.data, ...reports]);
+        }
         setGeneratingReport(null);
-      }, 2000);
+      }, 2500);
     } catch (error) {
       console.error('Failed to generate report:', error);
       setGeneratingReport(null);
+    }
+  };
+
+  const handleDownloadReport = async (reportId, fileName) => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await fetch(`http://localhost:5000/api/reports/${reportId}/download`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error('Download failed');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName || 'ecomine-report.pdf';
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Failed to download report:', error);
+      alert('Failed to download report. Please try again.');
+    }
+  };
+
+  const handleDeleteReport = async (reportId) => {
+    if (!window.confirm('Are you sure you want to delete this report?')) {
+      return;
+    }
+
+    try {
+      await reportService.deleteReport(reportId);
+      setReports(reports.filter(r => r._id !== reportId));
+    } catch (error) {
+      console.error('Failed to delete report:', error);
+      alert('Failed to delete report. Please try again.');
     }
   };
 
@@ -133,19 +183,35 @@ const Reports = () => {
               <div key={report._id} className="report-card">
                 <div className="card-header">
                   <h4>{report.title}</h4>
-                  <span className="status-badge">{report.status}</span>
+                  <span className={`status-badge ${report.status}`}>{report.status}</span>
                 </div>
                 <div className="card-body">
+                  <p><strong>Type:</strong> {report.reportType?.toUpperCase()}</p>
                   <p><strong>Generated:</strong> {new Date(report.createdAt).toLocaleDateString()}</p>
                   {report.generatedAt && (
-                    <p><strong>File Size:</strong> 2.4 MB</p>
+                    <p><strong>Completed:</strong> {new Date(report.generatedAt).toLocaleString()}</p>
                   )}
                 </div>
                 <div className="card-footer">
                   {report.status === 'completed' && (
-                    <a href={report.downloadUrl} className="btn-download">📥 Download</a>
+                    <button 
+                      className="btn-download"
+                      onClick={() => handleDownloadReport(report._id, report.fileName)}
+                    >
+                      📥 Download PDF
+                    </button>
                   )}
-                  <button className="btn-delete">🗑️ Delete</button>
+                  {report.status === 'pending' && (
+                    <button className="btn-download" disabled>
+                      ⏳ Generating...
+                    </button>
+                  )}
+                  <button 
+                    className="btn-delete"
+                    onClick={() => handleDeleteReport(report._id)}
+                  >
+                    🗑️ Delete
+                  </button>
                 </div>
               </div>
             ))}

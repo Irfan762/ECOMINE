@@ -34,6 +34,7 @@ app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/assessments', require('./routes/assessmentRoutes'));
 app.use('/api/scenarios', require('./routes/scenarioRoutes'));
 app.use('/api/reports', require('./routes/reportRoutes'));
+app.use('/api/csv', require('./routes/csvRoutes'));
 
 // Health Check
 app.get('/api/health', (req, res) => {

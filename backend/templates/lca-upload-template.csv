@@ -1,0 +1,5 @@
+metalType,productionRoute,oreGrade,location,transportMode,processingRoute,productionCapacity,recycledContentPct,recycleRateEOL,productLifeYrs,dataQualityScore,carbonCreditPriceUSD,plantName,batchId,productionDate
+aluminum,primary,2.5,india,rail,pyrometallurgy,100000,0,0,10,3,8,Plant-A,BATCH-001,2024-01-15
+copper,primary,1.8,india_gujarat,road_truck,pyrometallurgy,50000,10,20,15,2,8,Plant-B,BATCH-002,2024-01-16
+steel,recycled,62,india_jharkhand,rail,eaf,200000,80,85,20,1,8,Plant-C,BATCH-003,2024-01-17
+aluminum,recycled,30,india_south,rail,pyrometallurgy,75000,90,95,12,2,8,Plant-D,BATCH-004,2024-01-18

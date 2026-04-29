@@ -5,6 +5,7 @@ import Calculator from '../components/Calculator';
 import Analytics from '../components/Analytics';
 import Scenarios from '../components/Scenarios';
 import Reports from '../components/Reports';
+import CSVUpload from '../components/CSVUpload';
 import './AppPage.css';
 
 const AppPage = () => {
@@ -29,6 +30,8 @@ const AppPage = () => {
         return <Scenarios />;
       case 'reports':
         return <Reports />;
+      case 'csv-upload':
+        return <CSVUpload />;
       default:
         return <Dashboard />;
     }
@@ -80,6 +83,14 @@ const AppPage = () => {
           >
             <span className="nav-icon">🔬</span>
             <span className="nav-label">Calculator</span>
+            <div className="nav-indicator"></div>
+          </button>
+          <button
+            className={`nav-item ${activeSection === 'csv-upload' ? 'active' : ''}`}
+            onClick={() => handleSectionChange('csv-upload')}
+          >
+            <span className="nav-icon">📊</span>
+            <span className="nav-label">Batch Upload</span>
             <div className="nav-indicator"></div>
           </button>
           <button

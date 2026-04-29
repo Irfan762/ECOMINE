@@ -4,7 +4,8 @@ const {
   generateReport,
   getReports,
   getReport,
-  deleteReport
+  deleteReport,
+  downloadReport
 } = require('../controllers/reportController');
 const { verifyToken } = require('../middleware/authMiddleware');
 
@@ -21,6 +22,9 @@ router.get('/', verifyToken, getReports);
 
 // Get Single Report
 router.get('/:id', verifyToken, getReport);
+
+// Download Report
+router.get('/:id/download', verifyToken, downloadReport);
 
 // Delete Report
 router.delete('/:id', verifyToken, deleteReport);

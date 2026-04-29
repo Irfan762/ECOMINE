@@ -166,6 +166,22 @@
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: 600;
+  text-transform: capitalize;
+}
+
+.status-badge.completed {
+  background: rgba(72, 187, 120, 0.2);
+  color: #48BB78;
+}
+
+.status-badge.pending {
+  background: rgba(237, 137, 54, 0.2);
+  color: #ED8936;
+}
+
+.status-badge.failed {
+  background: rgba(245, 101, 101, 0.2);
+  color: #F56565;
 }
 
 .card-body {
@@ -187,26 +203,41 @@
 
 .btn-download,
 .btn-delete {
-  background: none;
-  border: none;
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
   color: #00D9FF;
   cursor: pointer;
   font-size: 0.9rem;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   flex: 1;
   text-align: center;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.btn-download:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .btn-delete {
+  background: rgba(113, 128, 150, 0.1);
+  border-color: rgba(113, 128, 150, 0.3);
   color: #718096;
 }
 
-.btn-download:hover {
-  color: #1FB8CD;
+.btn-download:hover:not(:disabled) {
+  background: rgba(0, 217, 255, 0.2);
+  border-color: #00D9FF;
+  transform: translateY(-2px);
 }
 
 .btn-delete:hover {
+  background: rgba(245, 101, 101, 0.2);
+  border-color: rgba(245, 101, 101, 0.5);
   color: #F56565;
+  transform: translateY(-2px);
 }
 
 .compliance-info {
