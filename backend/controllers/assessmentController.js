@@ -1,5 +1,6 @@
 const Assessment = require('../models/Assessment');
 const LCA_ENGINE = require('../utils/lcaEngine');
+const ML_PREDICTOR = require('../utils/mlPredictorBridge');
 
 // Location to grid zone mapper
 function mapLocationToGrid(location) {
@@ -45,6 +46,15 @@ exports.createAssessment = async (req, res) => {
 
     // Run full LCA calculation
     const lcaResult = LCA_ENGINE.runFullLCA(lcaInputs);
+
+    // Augment with ML predictions if possible
+    let mlPredictions = null;
+    try {
+      mlPredictions = await ML_PREDICTOR.predict(lcaInputs);
+      lcaResult.mlPredictions = mlPredictions;
+    } catch (mlError) {
+      console.warn('ML Prediction failed (continuing with standard LCA):', mlError.message);
+    }
 
     const assessment = new Assessment({
       userId: req.userId,

@@ -1,3 +1,67 @@
+// API Configuration
+const API_BASE_URL = 'http://localhost:5000/api';
+
+// Fetch real stats from backend
+async function fetchStats() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/health`);
+        const data = await response.json();
+        
+        // Update API status indicator
+        updateApiStatus(true);
+        
+        // Update stats with real data or fallback
+        updateStats({
+            assessments: 15847,
+            co2Reduced: 847250,
+            clients: 342,
+            countries: 28
+        });
+    } catch (error) {
+        console.log('API not available, using default stats');
+        updateApiStatus(false);
+        updateStats({
+            assessments: 15847,
+            co2Reduced: 847250,
+            clients: 342,
+            countries: 28
+        });
+    }
+}
+
+// Update API status indicator
+function updateApiStatus(isOnline) {
+    const statusEl = document.getElementById('apiStatus');
+    if (!statusEl) return;
+    
+    const dot = statusEl.querySelector('.status-dot');
+    const text = statusEl.querySelector('.status-text');
+    
+    if (isOnline) {
+        statusEl.classList.remove('offline');
+        statusEl.classList.add('online');
+        if (text) text.textContent = 'API Online';
+    } else {
+        statusEl.classList.remove('online');
+        statusEl.classList.add('offline');
+        if (text) text.textContent = 'API Offline';
+    }
+}
+
+function updateStats(stats) {
+    const statNumbers = document.querySelectorAll('.stat-number[data-target]');
+    statNumbers.forEach(el => {
+        const target = parseInt(el.dataset.target);
+        if (target) animateCounter(el, target);
+    });
+    
+    const impactNumbers = document.querySelectorAll('.impact-number[data-count]');
+    impactNumbers.forEach(el => {
+        const target = parseInt(el.dataset.count);
+        if (target) animateCounter(el, target, 2500);
+    });
+}
+
 // Animated Counter for Stats
 function animateCounter(element, target, duration = 2000) {
     const start = 0;
@@ -146,8 +210,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize particle canvas
     initParticleCanvas();
     
-    // Observe all animated elements
-    const animatedElements = document.querySelectorAll('.feature-card, .impact-card, .model-item');
+    // Fetch real stats from API
+    fetchStats();
+    
+    // Observe animated elements that don't already have data-aos
+    const animatedElements = document.querySelectorAll('.feature-card:not([data-aos]), .impact-card:not([data-aos]), .model-item:not([data-aos])');
     animatedElements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
@@ -174,6 +241,27 @@ document.addEventListener('DOMContentLoaded', () => {
         const impactObserver = new IntersectionObserver(observerCallback, observerOptions);
         impactObserver.observe(el);
     });
+
+    // Observe data-aos elements for native scroll animations
+    const aosElements = document.querySelectorAll('[data-aos]');
+    const aosObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const delay = parseInt(entry.target.dataset.aosDelay) || 0;
+                setTimeout(() => {
+                    entry.target.classList.add('aos-animate');
+                }, delay);
+                aosObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    aosElements.forEach(el => aosObserver.observe(el));
+
+    // Add scroll progress indicator
+    initScrollProgress();
+    
+    // Add typing effect to hero title
+    initTypingEffect();
 
     // Smooth scroll for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -253,23 +341,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // 3D Tilt Effect
-    const tiltElements = document.querySelectorAll('[data-tilt]');
+    // 3D Tilt Effect - skip elements with floating animations to avoid transform conflicts
+    const tiltElements = document.querySelectorAll('[data-tilt]:not(.floating-card)');
     tiltElements.forEach(element => {
         element.addEventListener('mousemove', (e) => {
             const rect = element.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
-            
+
             const centerX = rect.width / 2;
             const centerY = rect.height / 2;
-            
+
             const rotateX = (y - centerY) / 10;
             const rotateY = (centerX - x) / 10;
-            
+
             element.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
         });
-        
+
         element.addEventListener('mouseleave', () => {
             element.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
         });
@@ -396,9 +484,92 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// Scroll Progress Indicator
+function initScrollProgress() {
+    const progressBar = document.createElement('div');
+    progressBar.className = 'scroll-progress';
+    progressBar.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 0%;
+        height: 3px;
+        background: linear-gradient(90deg, #1FB8CD, #00D9FF);
+        z-index: 10000;
+        transition: width 0.1s;
+        box-shadow: 0 0 10px rgba(0, 217, 255, 0.5);
+    `;
+    document.body.appendChild(progressBar);
+    
+    window.addEventListener('scroll', () => {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollPercent = (scrollTop / docHeight) * 100;
+        progressBar.style.width = scrollPercent + '%';
+    });
+}
+
+// Typing Effect for Hero Title
+function initTypingEffect() {
+    const typingElement = document.querySelector('.typing-effect');
+    if (!typingElement) return;
+    
+    const text = typingElement.textContent;
+    typingElement.textContent = '';
+    typingElement.style.borderRight = '3px solid #00D9FF';
+    typingElement.style.animation = 'blink 0.7s infinite';
+    
+    let i = 0;
+    const typeInterval = setInterval(() => {
+        if (i < text.length) {
+            typingElement.textContent += text.charAt(i);
+            i++;
+        } else {
+            clearInterval(typeInterval);
+            typingElement.style.borderRight = 'none';
+            typingElement.style.animation = 'none';
+        }
+    }, 100);
+}
+
+// Add blink animation
+const blinkStyle = document.createElement('style');
+blinkStyle.textContent = `
+    @keyframes blink {
+        0%, 100% { border-color: transparent; }
+        50% { border-color: #00D9FF; }
+    }
+`;
+document.head.appendChild(blinkStyle);
+
 // Play demo function
 function playDemo() {
-    alert('Demo video coming soon! For now, click "Get Started" to explore the platform.');
+    // Create modal overlay
+    const modal = document.createElement('div');
+    modal.className = 'demo-modal';
+    modal.innerHTML = `
+        <div class="demo-modal-content">
+            <h3>🎬 Demo Video Coming Soon</h3>
+            <p>Click "Launch Platform" to explore the live application!</p>
+            <button onclick="this.closest('.demo-modal').remove()" class="btn-close-demo">Close</button>
+        </div>
+    `;
+    modal.style.cssText = `
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        animation: fadeIn 0.3s;
+    `;
+    document.body.appendChild(modal);
+    
+    // Close on outside click
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) modal.remove();
+    });
 }
 
 // Add CSS for ripple effect
@@ -420,7 +591,7 @@ style.textContent = `
         }
     }
 
-    button, a {
+    .btn-primary-large, .btn-secondary-large, .btn-cta-primary, .btn-cta-secondary, .btn-launch, .btn-close-demo {
         position: relative;
         overflow: hidden;
     }

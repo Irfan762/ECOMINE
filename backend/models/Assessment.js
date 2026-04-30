@@ -37,22 +37,7 @@ const assessmentSchema = new mongoose.Schema({
     required: true
   },
   results: {
-    energy: {
-      value: Number,
-      range: [Number, Number],
-      confidence: Number
-    },
-    co2: {
-      value: Number,
-      range: [Number, Number],
-      confidence: Number
-    },
-    water: {
-      value: Number,
-      range: [Number, Number],
-      confidence: Number
-    },
-    circularity: Number
+    type: mongoose.Schema.Types.Mixed
   },
   modelUsed: String,
   dataQuality: String,
