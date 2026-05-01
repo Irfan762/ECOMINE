@@ -104,12 +104,31 @@ const Analytics = () => {
     );
   }
 
-  const { energy, co2, water } = currentAssessment.results;
+  const results = currentAssessment.results || {};
+  const totals = results.inventory?.totals || {};
+  
+  // Extract values with fallbacks for both old and new structures
+  const energyVal = totals.energy_GJ ?? results.energy?.value ?? 0;
+  const co2Val = totals.co2_kg ?? results.co2?.value ?? 0;
+  const waterVal = totals.water_L ?? results.water?.value ?? 0;
+  
+  // Extract confidence with fallbacks
+  const energyConf = results.uncertainty?.confidence_pct ?? results.energy?.confidence ?? 85;
+  const co2Conf = results.uncertainty?.confidence_pct ?? results.co2?.confidence ?? 90;
+  const waterConf = results.uncertainty?.confidence_pct ?? results.water?.confidence ?? 80;
+
   const avgEnergy = assessments.length > 0 
-    ? (assessments.reduce((sum, a) => sum + (a.results?.energy?.value || 0), 0) / assessments.length).toFixed(1)
+    ? (assessments.reduce((sum, a) => {
+        const r = a.results || {};
+        return sum + (r.inventory?.totals?.energy_GJ ?? r.energy?.value ?? 0);
+      }, 0) / assessments.length).toFixed(1)
     : 0;
+
   const avgCO2 = assessments.length > 0 
-    ? (assessments.reduce((sum, a) => sum + (a.results?.co2?.value || 0), 0) / assessments.length).toFixed(1)
+    ? (assessments.reduce((sum, a) => {
+        const r = a.results || {};
+        return sum + (r.inventory?.totals?.co2_kg ?? r.co2?.value ?? 0);
+      }, 0) / assessments.length).toFixed(1)
     : 0;
 
   return (
@@ -168,7 +187,7 @@ const Analytics = () => {
               labels: ['Energy', 'CO₂', 'Water', 'Circularity', 'Cost'],
               datasets: [{
                 label: 'Model Confidence',
-                data: [energy.confidence, co2.confidence, water.confidence, 87, 92],
+                data: [energyConf, co2Conf, waterConf, 87, 92],
                 backgroundColor: 'rgba(0, 217, 255, 0.2)',
                 borderColor: '#00D9FF',
                 pointBackgroundColor: '#00D9FF'
@@ -199,7 +218,7 @@ const Analytics = () => {
               datasets: [
                 {
                   label: 'Your Assessment',
-                  data: [energy.value, energy.value * 0.95, energy.value * 0.9, energy.value * 0.88, energy.value * 0.85, energy.value * 0.82],
+                  data: [energyVal, energyVal * 0.95, energyVal * 0.9, energyVal * 0.88, energyVal * 0.85, energyVal * 0.82],
                   borderColor: '#00D9FF',
                   backgroundColor: 'rgba(0, 217, 255, 0.1)',
                   fill: true,

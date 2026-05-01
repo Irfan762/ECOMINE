@@ -133,7 +133,7 @@ const CSVUpload = () => {
       <div className="csv-header">
         <div className="header-content">
           <h1 className="csv-title">
-            <span className="title-icon">📊</span>
+            <span className="title-icon"></span>
             Batch LCA Calculator
           </h1>
           <p className="csv-subtitle">

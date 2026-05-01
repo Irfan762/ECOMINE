@@ -133,7 +133,12 @@ exports.getAssessments = async (req, res) => {
 
 // Get Single Assessment
 exports.getAssessment = async (req, res) => {
-  try {
+    if (req.params.id.startsWith('mock-')) {
+      const assessments = await exports.getAssessments(req, { json: (data) => data }); // Hacky way to get the mock list
+      const assessment = assessments.find(a => a._id === req.params.id);
+      return res.json(assessment || { _id: req.params.id, metalType: 'aluminum', results: {} });
+    }
+
     const assessment = await Assessment.findById(req.params.id);
     if (!assessment || assessment.userId.toString() !== req.userId) {
       return res.status(404).json({ error: 'Assessment not found' });
@@ -146,7 +151,10 @@ exports.getAssessment = async (req, res) => {
 
 // Delete Assessment
 exports.deleteAssessment = async (req, res) => {
-  try {
+    if (req.params.id.startsWith('mock-')) {
+      return res.json({ message: 'Mock assessment deleted' });
+    }
+
     const assessment = await Assessment.findById(req.params.id);
     if (!assessment || assessment.userId.toString() !== req.userId) {
       return res.status(404).json({ error: 'Assessment not found' });
