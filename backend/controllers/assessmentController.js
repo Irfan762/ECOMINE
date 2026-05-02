@@ -133,6 +133,7 @@ exports.getAssessments = async (req, res) => {
 
 // Get Single Assessment
 exports.getAssessment = async (req, res) => {
+  try {
     if (req.params.id.startsWith('mock-')) {
       const assessments = await exports.getAssessments(req, { json: (data) => data }); // Hacky way to get the mock list
       const assessment = assessments.find(a => a._id === req.params.id);
@@ -151,6 +152,7 @@ exports.getAssessment = async (req, res) => {
 
 // Delete Assessment
 exports.deleteAssessment = async (req, res) => {
+  try {
     if (req.params.id.startsWith('mock-')) {
       return res.json({ message: 'Mock assessment deleted' });
     }
