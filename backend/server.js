@@ -30,11 +30,17 @@ mongoose.connect(process.env.MONGODB_URI, {
   });
 
 // Routes
+const { checkSubscription } = require('./middleware/subscriptionMiddleware');
+
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/assessments', require('./routes/assessmentRoutes'));
-app.use('/api/scenarios', require('./routes/scenarioRoutes'));
-app.use('/api/reports', require('./routes/reportRoutes'));
-app.use('/api/csv', require('./routes/csvRoutes'));
+app.use('/api/subscription', require('./routes/subscriptionRoutes'));
+app.use('/api/admin', require('./routes/adminRoutes'));
+
+// Protected core routes - require subscription
+app.use('/api/assessments', checkSubscription, require('./routes/assessmentRoutes'));
+app.use('/api/scenarios', checkSubscription, require('./routes/scenarioRoutes'));
+app.use('/api/reports', checkSubscription, require('./routes/reportRoutes'));
+app.use('/api/csv', checkSubscription, require('./routes/csvRoutes'));
 
 // Health Check
 app.get('/api/health', (req, res) => {

@@ -44,7 +44,9 @@ exports.register = async (req, res) => {
         name: user.name,
         email: user.email,
         company: user.company,
-        subscriptionTier: user.subscriptionTier
+        role: user.role,
+        subscriptionTier: user.subscriptionTier,
+        subscriptionStatus: user.subscriptionStatus
       }
     });
   } catch (error) {
@@ -77,7 +79,9 @@ exports.login = async (req, res) => {
           name: 'Test User',
           email: 'test@ecomine.com',
           company: 'ECOMINE Test',
-          subscriptionTier: 'free'
+          role: 'admin',
+          subscriptionTier: 'enterprise',
+          subscriptionStatus: 'active'
         },
         message: 'Mock login - MongoDB not available'
       });
@@ -104,7 +108,9 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         company: user.company,
-        subscriptionTier: user.subscriptionTier
+        role: user.role,
+        subscriptionTier: user.subscriptionTier,
+        subscriptionStatus: user.subscriptionStatus
       }
     });
   } catch (error) {
@@ -121,7 +127,23 @@ exports.login = async (req, res) => {
 // Get Current User
 exports.getCurrentUser = async (req, res) => {
   try {
-    const user = await User.findById(req.userId);
+    // Handle mock user
+    if (req.userId === 'mock-user-123') {
+      return res.json({
+        id: 'mock-user-123',
+        name: 'Test User',
+        email: 'test@ecomine.com',
+        company: 'ECOMINE Test',
+        role: 'admin',
+        subscriptionTier: 'enterprise',
+        subscriptionStatus: 'active'
+      });
+    }
+
+    const user = await User.findById(req.userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
     res.json(user);
   } catch (error) {
     res.status(500).json({ error: error.message });

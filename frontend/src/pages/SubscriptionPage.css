@@ -1,0 +1,183 @@
+.subscription-container {
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  background: radial-gradient(circle at top right, #1a2a22, #0a0f0d);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.subscription-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  max-width: 800px;
+}
+
+.subscription-header h1 {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(135deg, #4ade80, #2dd4bf);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subscription-header p {
+  font-size: 1.25rem;
+  color: #94a3b8;
+  line-height: 1.6;
+}
+
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.plan-card {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  border-color: rgba(74, 222, 128, 0.3);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.plan-card.recommended {
+  border-color: #4ade80;
+  background: rgba(30, 41, 59, 0.7);
+  box-shadow: 0 10px 30px rgba(74, 222, 128, 0.1);
+}
+
+.recommended-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, #4ade80, #2dd4bf);
+  color: #000;
+  padding: 0.5rem 1.5rem;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #f8fafc;
+}
+
+.plan-price {
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: baseline;
+}
+
+.plan-price .amount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #fff;
+}
+
+.plan-price .period {
+  font-size: 1.125rem;
+  color: #94a3b8;
+  margin-left: 0.5rem;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem 0;
+  flex-grow: 1;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: #cbd5e1;
+}
+
+.plan-features svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #4ade80;
+  flex-shrink: 0;
+}
+
+.subscribe-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.subscribe-btn.primary {
+  background: linear-gradient(135deg, #4ade80, #2dd4bf);
+  color: #0f172a;
+}
+
+.subscribe-btn.primary:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+.subscribe-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.subscribe-btn.secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.message-banner {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.message-banner.success {
+  background: rgba(74, 222, 128, 0.1);
+  color: #4ade80;
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.message-banner.error {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+@media (max-width: 768px) {
+  .subscription-header h1 {
+    font-size: 2.5rem;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { createContext, useState, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useEffect } from 'react';
 import { authService } from '../services/assessmentService';
 
 export const AppContext = createContext();
@@ -9,25 +9,71 @@ export const AppProvider = ({ children }) => {
   const [currentAssessment, setCurrentAssessment] = useState(null);
   const [scenarios, setScenarios] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isInitializing, setIsInitializing] = useState(true);
   const [error, setError] = useState(null);
 
   const fetchInitialData = useCallback(async () => {
     try {
       const { assessmentService, scenarioService } = await import('../services/assessmentService');
       
-      // Fetch assessments
-      const assessmentsRes = await assessmentService.getAssessments();
-      if (assessmentsRes.data.length > 0) {
-        setCurrentAssessment(assessmentsRes.data[0]);
+      // Fetch user profile if token exists but user is null
+      const token = localStorage.getItem('token');
+      let currentUser = user;
+
+      if (token && !user) {
+        try {
+          const userRes = await authService.getCurrentUser();
+          currentUser = userRes.data;
+          setUser(currentUser);
+          setIsAuthenticated(true);
+        } catch (err) {
+          console.error('Session expired or invalid');
+          localStorage.removeItem('token');
+          setIsAuthenticated(false);
+          setUser(null);
+          return;
+        }
       }
-      
-      // Fetch scenarios
-      const scenariosRes = await scenarioService.getScenarios();
-      setScenarios(scenariosRes.data);
+
+      // Only fetch assessments and scenarios if user has active subscription or is admin
+      const hasSub = currentUser?.subscriptionStatus === 'active' || 
+                    currentUser?.subscriptionStatus === 'trialing' || 
+                    currentUser?.role === 'admin';
+
+      if (hasSub) {
+        // Fetch assessments
+        try {
+          const assessmentsRes = await assessmentService.getAssessments();
+          if (assessmentsRes.data.length > 0) {
+            setCurrentAssessment(assessmentsRes.data[0]);
+          }
+        } catch (err) {
+          console.error('Failed to fetch assessments:', err);
+        }
+        
+        // Fetch scenarios
+        try {
+          const scenariosRes = await scenarioService.getScenarios();
+          setScenarios(scenariosRes.data);
+        } catch (err) {
+          console.error('Failed to fetch scenarios:', err);
+        }
+      }
     } catch (error) {
       console.error('Failed to fetch initial data:', error);
+    } finally {
+      setIsInitializing(false);
     }
-  }, []);
+  }, [user]);
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      fetchInitialData();
+    } else {
+      setIsInitializing(false);
+    }
+  }, [fetchInitialData]);
 
   const login = useCallback(async (email, password) => {
     setIsLoading(true);
@@ -87,8 +133,10 @@ export const AppProvider = ({ children }) => {
 
   const value = {
     user,
+    setUser,
     isAuthenticated,
     isLoading,
+    isInitializing,
     error,
     currentAssessment,
     setCurrentAssessment,
