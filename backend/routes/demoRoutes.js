@@ -1,13 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { getAllUsers, updateUserSubscription, deleteUser, getStats, createUser } = require('../controllers/adminController');
+const { submitDemoRequest, getAllDemoRequests, updateDemoRequestStatus } = require('../controllers/demoController');
 const { verifyToken } = require('../middleware/authMiddleware');
 const User = require('../models/User');
 
-// Middleware to check if user is admin
+// Public route to submit a demo request
+router.post('/request', submitDemoRequest);
+
+// Protected Admin routes
 const isAdmin = async (req, res, next) => {
   try {
-    // Handle mock admin
     if (req.userId === 'mock-user-123') {
       return next();
     }
@@ -20,20 +22,14 @@ const isAdmin = async (req, res, next) => {
     if (user && user.role === 'admin') {
       next();
     } else {
-      res.status(403).json({ error: 'Access denied. Admin only.' });
+      res.status(403).json({ error: 'Access denied' });
     }
   } catch (error) {
-    res.status(500).json({ error: 'Server error checking admin role' });
+    res.status(500).json({ error: 'Server error' });
   }
 };
 
-router.use(verifyToken);
-router.use(isAdmin);
-
-router.get('/users', getAllUsers);
-router.post('/users', createUser);
-router.put('/subscription', updateUserSubscription);
-router.delete('/users/:id', deleteUser);
-router.get('/stats', getStats);
+router.get('/requests', verifyToken, isAdmin, getAllDemoRequests);
+router.put('/requests/:id', verifyToken, isAdmin, updateDemoRequestStatus);
 
 module.exports = router;

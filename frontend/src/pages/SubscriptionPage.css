@@ -181,3 +181,140 @@
     font-size: 2.5rem;
   }
 }
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  border-color: #000000;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.plan-card.recommended {
+  border-color: #000000;
+  background: #FFFFFF;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.recommended-badge {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #000000;
+  color: #FFFFFF;
+  padding: 0.5rem 1.5rem;
+  border-radius: 99px;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plan-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #000;
+}
+
+.plan-price {
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: baseline;
+}
+
+.plan-price .amount {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #000;
+}
+
+.plan-price .period {
+  font-size: 1.125rem;
+  color: #94a3b8;
+  margin-left: 0.5rem;
+}
+
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 3rem 0;
+  flex-grow: 1;
+}
+
+.plan-features li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: #4A5568;
+}
+
+.plan-features svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: #000;
+  flex-shrink: 0;
+}
+
+.subscribe-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.125rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.subscribe-btn.primary {
+  background: #000000;
+  color: #FFFFFF;
+}
+
+.subscribe-btn.primary:hover {
+  filter: brightness(1.1);
+  transform: scale(1.02);
+}
+
+.subscribe-btn.secondary {
+  background: #F1F5F9;
+  color: #000;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.subscribe-btn.secondary:hover {
+  background: #E2E8F0;
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+.message-banner {
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.message-banner.success {
+  background: #000000;
+  color: #FFFFFF;
+  border: 1px solid #000000;
+}
+
+.message-banner.error {
+  background: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+@media (max-width: 768px) {
+  .subscription-header h1 {
+    font-size: 2.5rem;
+  }
+}

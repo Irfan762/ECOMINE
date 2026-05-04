@@ -4,7 +4,7 @@ import { scenarioService } from '../services/assessmentService';
 import './Scenarios.css';
 
 const Scenarios = () => {
-  const { currentAssessment, scenarios, setScenarios, isLoading } = useContext(AppContext);
+  const { currentAssessment, scenarios, setScenarios, isLoading, showNotification } = useContext(AppContext);
   const [formData, setFormData] = useState({
     name: '',
     oreGrade: 1.5,
@@ -64,6 +64,7 @@ const Scenarios = () => {
 
       const response = await scenarioService.createScenario(scenario);
       setScenarios([...scenarios, response.data]);
+      showNotification('Scenario added successfully');
       
       setFormData({
         name: '',
@@ -73,6 +74,7 @@ const Scenarios = () => {
       });
     } catch (error) {
       console.error('Failed to create scenario:', error);
+      showNotification('Failed to create scenario', 'error');
     }
   };
 
@@ -80,8 +82,10 @@ const Scenarios = () => {
     try {
       await scenarioService.deleteScenario(scenarioId);
       setScenarios(scenarios.filter(s => s._id !== scenarioId));
+      showNotification('Scenario deleted successfully');
     } catch (error) {
       console.error('Failed to delete scenario:', error);
+      showNotification('Failed to delete scenario', 'error');
     }
   };
 

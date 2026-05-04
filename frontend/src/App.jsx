@@ -5,10 +5,11 @@ import LoginPage from './pages/LoginPage';
 import AppPage from './pages/AppPage';
 import SubscriptionPage from './pages/SubscriptionPage';
 import AdminPanel from './pages/AdminPanel';
+import Toast from './components/Toast';
 import './App.css';
 
 function App() {
-  const { isAuthenticated, user, isInitializing } = useContext(AppContext);
+  const { isAuthenticated, user, isInitializing, notification, showNotification } = useContext(AppContext);
 
   if (isInitializing) {
     return <div className="app-loading">Loading ECOMINE...</div>;
@@ -54,6 +55,14 @@ function App() {
           } 
         />
       </Routes>
+      
+      {notification && (
+        <Toast 
+          message={notification.message} 
+          type={notification.type} 
+          onClose={() => showNotification(null)} 
+        />
+      )}
     </Router>
   );
 }

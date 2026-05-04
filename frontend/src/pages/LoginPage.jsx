@@ -5,12 +5,37 @@ import { initLoginParticles } from '../utils/particles';
 import './LoginPage.css';
 
 const LoginPage = () => {
-  const { login, isLoading, error } = useContext(AppContext);
+  const { login, isLoading, error, showNotification } = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
+  const [showDemoForm, setShowDemoForm] = useState(false);
+  const [demoMessage, setDemoMessage] = useState('');
+
+  const handleDemoSubmit = async (e) => {
+    e.preventDefault();
+    const demoData = {
+      name: e.target.name.value,
+      email: e.target.email.value,
+      company: e.target.company.value,
+      message: e.target.message.value
+    };
+    
+    try {
+      const response = await fetch('http://localhost:5000/api/demo/request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(demoData)
+      });
+      const data = await response.json();
+      showNotification('Request sent successfully');
+      setShowDemoForm(false);
+    } catch (err) {
+      showNotification('Failed to submit demo request', 'error');
+    }
+  };
 
   useEffect(() => {
     // Initialize particle animation
@@ -173,12 +198,34 @@ const LoginPage = () => {
 
           <div className="login-footer">
             <p>Don't have an account? <span className="link">Sign up</span></p>
+            <div className="demo-request-link" onClick={() => setShowDemoForm(true)}>
+              Request a Professional Demo 🚀
+            </div>
             <div className="demo-badge">
               <span className="demo-icon">🎯</span>
               <span className="demo-text">Demo: test@ecomine.com / Test@123</span>
             </div>
           </div>
         </div>
+
+        {/* Request Demo Modal */}
+        {showDemoForm && (
+          <div className="demo-modal-overlay">
+            <div className="demo-modal">
+              <button className="close-modal" onClick={() => setShowDemoForm(false)}>×</button>
+              <h2>Request Platform Demo</h2>
+              <p>Experience the full power of ECOMINE AI</p>
+              <form onSubmit={handleDemoSubmit}>
+                <input type="text" name="name" placeholder="Full Name" required />
+                <input type="email" name="email" placeholder="Business Email" required />
+                <input type="text" name="company" placeholder="Company Name" required />
+                <textarea name="message" placeholder="Tell us about your requirements..."></textarea>
+                <button type="submit" className="btn-submit-demo">Submit Request</button>
+              </form>
+              {demoMessage && <p className="demo-success">{demoMessage}</p>}
+            </div>
+          </div>
+        )}
 
         <div className="login-info" data-aos="fade-left">
           <div className="info-header">

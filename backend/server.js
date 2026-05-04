@@ -14,20 +14,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Database Connection
-let mongoConnected = false;
+mongoose.set('bufferCommands', false);
+
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   serverSelectionTimeoutMS: 5000,
 })
-  .then(() => {
-    console.log('✅ MongoDB connected');
-    mongoConnected = true;
-  })
-  .catch(err => {
-    console.error('⚠️ MongoDB connection warning:', err.message);
-    console.log('📝 Running in mock mode - login will use test credentials');
-  });
+.then(() => console.log('✅ MongoDB connected'))
+.catch(err => {
+  console.error('❌ MongoDB Connection Error:', err.message);
+  console.log('💡 Tip: Check your IP Whitelist in MongoDB Atlas.');
+});
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`🚀 ECOMINE Backend Server running on port ${PORT}`);
+});
 
 // Routes
 const { checkSubscription } = require('./middleware/subscriptionMiddleware');
@@ -35,6 +38,7 @@ const { checkSubscription } = require('./middleware/subscriptionMiddleware');
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/subscription', require('./routes/subscriptionRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
+app.use('/api/demo', require('./routes/demoRoutes'));
 
 // Protected core routes - require subscription
 app.use('/api/assessments', checkSubscription, require('./routes/assessmentRoutes'));
@@ -56,7 +60,4 @@ app.use((err, req, res, next) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`🚀 ECOMINE Backend Server running on port ${PORT}`);
-});
+

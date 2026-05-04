@@ -7,6 +7,10 @@ const checkSubscription = async (req, res, next) => {
       return next();
     }
 
+    if (require('mongoose').connection.readyState !== 1) {
+      return res.status(503).json({ error: 'Database is offline.' });
+    }
+
     const user = await User.findById(req.userId);
     
     if (!user) {

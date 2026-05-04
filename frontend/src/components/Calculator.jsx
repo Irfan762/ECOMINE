@@ -4,7 +4,7 @@ import { assessmentService } from '../services/assessmentService';
 import './Calculator.css';
 
 const Calculator = () => {
-  const { setCurrentAssessment, isLoading } = useContext(AppContext);
+  const { setCurrentAssessment, isLoading, showNotification } = useContext(AppContext);
   const [formData, setFormData] = useState({
     metalType: 'aluminum',
     productionRoute: 'primary',
@@ -40,12 +40,14 @@ const Calculator = () => {
       // Success delay for animation
       setTimeout(() => {
         setProcessing(false);
+        showNotification('Assessment generated successfully');
         // Switch to dashboard view if needed
         window.location.hash = '#/dashboard';
       }, 2000);
     } catch (error) {
       console.error('Assessment failed:', error);
       setProcessing(false);
+      showNotification('Assessment failed to generate', 'error');
     }
   };
 

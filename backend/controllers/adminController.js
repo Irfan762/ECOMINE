@@ -10,10 +10,10 @@ exports.getAllUsers = async (req, res) => {
   }
 };
 
-// Update user subscription
+// Update user subscription and status
 exports.updateUserSubscription = async (req, res) => {
   try {
-    const { userId, subscriptionTier, subscriptionStatus, subscriptionExpires } = req.body;
+    const { userId, subscriptionTier, subscriptionStatus, subscriptionExpires, status, isApproved } = req.body;
     
     const user = await User.findById(userId);
     if (!user) {
@@ -23,11 +23,13 @@ exports.updateUserSubscription = async (req, res) => {
     if (subscriptionTier) user.subscriptionTier = subscriptionTier;
     if (subscriptionStatus) user.subscriptionStatus = subscriptionStatus;
     if (subscriptionExpires) user.subscriptionExpires = new Date(subscriptionExpires);
+    if (status) user.status = status;
+    if (isApproved !== undefined) user.isApproved = isApproved;
     
     user.updatedAt = Date.now();
     await user.save();
 
-    res.json({ message: 'User subscription updated successfully', user });
+    res.json({ message: 'User updated successfully', user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -41,6 +43,39 @@ exports.deleteUser = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
     res.json({ message: 'User deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Create a new user manually
+exports.createUser = async (req, res) => {
+  try {
+    if (require('mongoose').connection.readyState !== 1) {
+      return res.status(503).json({ error: 'Database is offline. User creation is disabled.' });
+    }
+
+    const { name, email, password, company, role, subscriptionTier } = req.body;
+
+    // Check if user already exists
+    let user = await User.findOne({ email });
+    if (user) {
+      return res.status(400).json({ error: 'User already exists' });
+    }
+
+    user = new User({
+      name,
+      email,
+      password,
+      company,
+      role: role || 'user',
+      subscriptionTier: subscriptionTier || 'free',
+      status: 'approved',
+      isApproved: true
+    });
+
+    await user.save();
+    res.status(201).json({ message: 'User created successfully', user });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

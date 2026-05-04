@@ -122,7 +122,7 @@ const AppPage = () => {
         <div className="nav-user" onClick={() => setShowUserMenu(!showUserMenu)}>
           <div className="user-info">
             <span className="user-name">{user?.name || 'User'}</span>
-            <span className="user-role">Administrator</span>
+            <span className="user-role">{user?.role === 'admin' ? 'Administrator' : 'Premium User'}</span>
           </div>
           <div className="user-avatar">
             <div className="avatar-glow"></div>
@@ -130,6 +130,11 @@ const AppPage = () => {
           </div>
           {showUserMenu && (
             <div className="user-menu">
+              {user?.role === 'admin' && (
+                <div className="menu-item" onClick={() => window.location.href = '/admin'}>
+                  <span>🛡️</span> Admin Dashboard
+                </div>
+              )}
               <div className="menu-item">
                 <span>⚙️</span> Settings
               </div>

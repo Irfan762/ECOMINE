@@ -11,6 +11,14 @@ export const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInitializing, setIsInitializing] = useState(true);
   const [error, setError] = useState(null);
+  const [notification, setNotification] = useState(null);
+
+  const showNotification = useCallback((message, type = 'success') => {
+    setNotification({ message, type });
+    setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+  }, []);
 
   const fetchInitialData = useCallback(async () => {
     try {
@@ -144,7 +152,9 @@ export const AppProvider = ({ children }) => {
     setScenarios,
     login,
     register,
-    logout
+    logout,
+    notification,
+    showNotification
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

@@ -17,6 +17,10 @@ exports.register = async (req, res) => {
   }
 
   try {
+    if (require('mongoose').connection.readyState !== 1) {
+      return res.status(503).json({ error: 'Database is offline. Registration is temporarily disabled.' });
+    }
+
     const { name, email, password, company } = req.body;
 
     // Check if user already exists
@@ -63,8 +67,9 @@ exports.login = async (req, res) => {
 
   try {
     const { email, password } = req.body;
+    const isDbConnected = require('mongoose').connection.readyState === 1;
 
-    // Mock login for testing when MongoDB is unavailable
+    // Mock login for testing (Always check this first if DB is down or for specific test credentials)
     if (email === 'test@ecomine.com' && password === 'Test@123') {
       const token = jwt.sign(
         { id: 'mock-user-123', email },
@@ -83,7 +88,13 @@ exports.login = async (req, res) => {
           subscriptionTier: 'enterprise',
           subscriptionStatus: 'active'
         },
-        message: 'Mock login - MongoDB not available'
+        message: 'Login successful'
+      });
+    }
+
+    if (!isDbConnected) {
+      return res.status(503).json({ 
+        error: 'Database is currently offline. Please use the test credentials for the demo.' 
       });
     }
 
@@ -97,6 +108,14 @@ exports.login = async (req, res) => {
     const isMatch = await user.comparePassword(password);
     if (!isMatch) {
       return res.status(400).json({ error: 'Invalid credentials' });
+    }
+
+    // Check if user is approved
+    if (user.role !== 'admin' && user.status !== 'approved') {
+      return res.status(403).json({ 
+        error: 'Your account is pending approval. Please contact an administrator.',
+        status: user.status 
+      });
     }
 
     const token = generateToken(user._id);
@@ -138,6 +157,10 @@ exports.getCurrentUser = async (req, res) => {
         subscriptionTier: 'enterprise',
         subscriptionStatus: 'active'
       });
+    }
+
+    if (require('mongoose').connection.readyState !== 1) {
+      return res.status(503).json({ error: 'Database is offline.' });
     }
 
     const user = await User.findById(req.userId).select('-password');

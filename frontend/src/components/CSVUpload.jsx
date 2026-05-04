@@ -1,8 +1,10 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useContext } from 'react';
+import { AppContext } from '../context/AppContext';
 import axios from 'axios';
 import './CSVUpload.css';
 
 const CSVUpload = () => {
+  const { showNotification } = useContext(AppContext);
   const [file, setFile] = useState(null);
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
@@ -87,8 +89,11 @@ const CSVUpload = () => {
       if (fileInputRef.current) {
         fileInputRef.current.value = '';
       }
+      showNotification('Batch calculation completed');
     } catch (err) {
-      setError(err.response?.data?.error || 'Upload failed. Please try again.');
+      const msg = err.response?.data?.error || 'Upload failed. Please try again.';
+      setError(msg);
+      showNotification(msg, 'error');
     } finally {
       setUploading(false);
     }

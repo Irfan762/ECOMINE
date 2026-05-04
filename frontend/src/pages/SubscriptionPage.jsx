@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../context/AppContext';
-import axios from 'axios';
+import api from '../services/api';
 import './SubscriptionPage.css';
 
 const SubscriptionPage = () => {
@@ -33,11 +33,7 @@ const SubscriptionPage = () => {
   const handleSubscribe = async (tier) => {
     setLoading(true);
     try {
-      const token = localStorage.getItem('token');
-      const response = await axios.post('http://localhost:5000/api/subscription/checkout', 
-        { plan: tier },
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const response = await api.post('/subscription/checkout', { plan: tier });
       
       setMessage(response.data.message);
       // Update local user state

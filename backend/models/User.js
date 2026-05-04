@@ -43,6 +43,15 @@ const userSchema = new mongoose.Schema({
   subscriptionExpires: {
     type: Date
   },
+  status: {
+    type: String,
+    default: 'pending',
+    enum: ['pending', 'approved', 'blocked']
+  },
+  isApproved: {
+    type: Boolean,
+    default: false
+  },
   createdAt: {
     type: Date,
     default: Date.now
@@ -51,7 +60,7 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-});
+}, { bufferCommands: false });
 
 // Hash password before saving
 userSchema.pre('save', async function(next) {
