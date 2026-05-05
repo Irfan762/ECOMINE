@@ -9,7 +9,7 @@
 
 .scenarios-header h2 {
   font-size: 2rem;
-  color: #00D9FF;
+  color: #34d399;
   margin-bottom: 0.5rem;
 }
 
@@ -19,7 +19,7 @@
 
 .scenario-builder {
   background: rgba(31, 184, 205, 0.08);
-  border: 1px solid rgba(0, 217, 255, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.2);
   border-radius: 12px;
   padding: 2rem;
   backdrop-filter: blur(20px);
@@ -27,7 +27,7 @@
 }
 
 .scenario-builder h3 {
-  color: #00D9FF;
+  color: #34d399;
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
 }
@@ -59,7 +59,7 @@
 .form-section input,
 .form-section select {
   background: rgba(11, 20, 38, 0.8);
-  border: 1px solid rgba(0, 217, 255, 0.3);
+  border: 1px solid rgba(52, 211, 153, 0.3);
   border-radius: 8px;
   padding: 0.75rem;
   color: #E2E8F0;
@@ -70,16 +70,16 @@
 .form-section input:focus,
 .form-section select:focus {
   outline: none;
-  border-color: #00D9FF;
-  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+  border-color: #34d399;
+  box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
 }
 
 .scenario-builder .btn-submit {
-  background: linear-gradient(135deg, #1FB8CD, #00D9FF);
+  background: linear-gradient(135deg, #10b981, #34d399);
   border: none;
   border-radius: 8px;
   padding: 1rem;
-  color: #0B1426;
+  color: #0f172a;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
@@ -88,7 +88,7 @@
 
 .scenario-builder .btn-submit:hover:not(:disabled) {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
+  box-shadow: 0 10px 30px rgba(52, 211, 153, 0.4);
 }
 
 .scenarios-list {
@@ -96,7 +96,7 @@
 }
 
 .scenarios-list h3 {
-  color: #00D9FF;
+  color: #34d399;
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
 }
@@ -109,7 +109,7 @@
 
 .scenario-card {
   background: rgba(31, 184, 205, 0.08);
-  border: 1px solid rgba(0, 217, 255, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.2);
   border-radius: 12px;
   padding: 1.5rem;
   backdrop-filter: blur(20px);
@@ -117,7 +117,7 @@
 }
 
 .scenario-card:hover {
-  border-color: rgba(0, 217, 255, 0.5);
+  border-color: rgba(52, 211, 153, 0.5);
   transform: translateY(-4px);
 }
 
@@ -160,7 +160,7 @@
 }
 
 .card-footer {
-  border-top: 1px solid rgba(0, 217, 255, 0.1);
+  border-top: 1px solid rgba(52, 211, 153, 0.1);
   padding-top: 0.75rem;
 }
 
