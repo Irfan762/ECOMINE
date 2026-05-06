@@ -16,11 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 // Database Connection
 mongoose.set('bufferCommands', false);
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  serverSelectionTimeoutMS: 5000,
-})
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => console.log('✅ MongoDB connected'))
 .catch(err => {
   console.error('❌ MongoDB Connection Error:', err.message);

@@ -5,11 +5,7 @@ dotenv.config();
 const testConnection = async () => {
   console.log('Testing connection to:', process.env.MONGODB_URI.replace(/\/\/.*@/, '//****:****@'));
   try {
-    await mongoose.connect(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      serverSelectionTimeoutMS: 10000,
-    });
+    await mongoose.connect(process.env.MONGODB_URI);
     console.log('✅ Success! Database is reachable.');
     const collections = await mongoose.connection.db.listCollections().toArray();
     console.log('Available collections:', collections.map(c => c.name));
