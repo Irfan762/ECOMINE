@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { ArrowRightIcon, CloseIcon, TrendingUpIcon, SettingsIcon } from '../components/Icons';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
@@ -140,7 +141,7 @@ const AdminPanel = () => {
           </button>
           <div className="sidebar-divider"></div>
           <button className="back-btn" onClick={() => navigate('/app')}>
-            <span>←</span> Back to App
+            <span style={{ display: 'inline-flex', transform: 'rotate(180deg)' }}><ArrowRightIcon /></span> Back to App
           </button>
         </nav>
       </div>
@@ -165,7 +166,7 @@ const AdminPanel = () => {
         {showAddUserModal && (
           <div className="admin-modal-overlay">
             <div className="admin-modal">
-              <button className="close-modal" onClick={() => setShowAddUserModal(false)}>×</button>
+              <button className="close-modal" onClick={() => setShowAddUserModal(false)}><CloseIcon /></button>
               <h2>Create New Account</h2>
               <form onSubmit={handleCreateUser}>
                 <div className="form-grid">
@@ -355,7 +356,7 @@ const AdminPanel = () => {
 
         {activeSection === 'revenue' && (
           <div className="admin-placeholder">
-            <div className="placeholder-icon">📈</div>
+            <div className="placeholder-icon"><TrendingUpIcon width="48" height="48" /></div>
             <h2>Revenue Analytics</h2>
             <p>Financial charts, subscription growth, and churn metrics will appear here.</p>
           </div>
@@ -363,7 +364,7 @@ const AdminPanel = () => {
 
         {activeSection === 'settings' && (
           <div className="admin-placeholder">
-            <div className="placeholder-icon">⚙️</div>
+            <div className="placeholder-icon"><SettingsIcon width="48" height="48" /></div>
             <h2>Platform Settings</h2>
             <p>Global system configuration, API keys, and model parameters management.</p>
           </div>

@@ -7,6 +7,17 @@ const User = require('../models/User');
 router.post('/checkout', verifyToken, async (req, res) => {
   try {
     const { plan } = req.body;
+    if (req.userId && req.userId.startsWith('mock-')) {
+      return res.json({ 
+        message: 'Subscription activated successfully (Demo Mode)',
+        user: {
+          subscriptionTier: plan,
+          subscriptionStatus: 'active',
+          subscriptionExpires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+        }
+      });
+    }
+
     const user = await User.findById(req.userId);
     
     if (!user) {
@@ -42,6 +53,14 @@ router.post('/checkout', verifyToken, async (req, res) => {
 // Get current subscription status
 router.get('/status', verifyToken, async (req, res) => {
   try {
+    if (req.userId && req.userId.startsWith('mock-')) {
+      return res.json({
+        subscriptionTier: 'enterprise',
+        subscriptionStatus: 'active',
+        subscriptionExpires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)
+      });
+    }
+
     const user = await User.findById(req.userId).select('subscriptionTier subscriptionStatus subscriptionExpires');
     res.json(user);
   } catch (error) {

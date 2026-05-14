@@ -2,6 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import { AppContext } from '../context/AppContext';
 import { useNavigate } from 'react-router-dom';
 import { initLoginParticles } from '../utils/particles';
+import { 
+  LeafIcon, MailIcon, LockIcon, AlertIcon, ArrowRightIcon, 
+  RocketIcon, TargetIcon, MicroscopeIcon, ChartIcon, 
+  RecycleIcon, IndiaIcon, CheckIcon, CloseIcon 
+} from '../components/Icons';
 import './LoginPage.css';
 
 const LoginPage = () => {
@@ -116,7 +121,7 @@ const LoginPage = () => {
           <div className="login-header">
             <div className="logo-wrapper">
               <div className="logo-glow"></div>
-              <span className="logo-icon">🌿</span>
+              <span className="logo-icon"><LeafIcon width="28" height="28" /></span>
             </div>
             <h1 className="gradient-text">ECOMINE</h1>
             <p className="subtitle">AI-Powered Life Cycle Assessment Platform</p>
@@ -129,7 +134,7 @@ const LoginPage = () => {
           <form onSubmit={handleSubmit} className="login-form">
             <div className="form-group">
               <label htmlFor="email">
-                <span className="label-icon">📧</span>
+                <span className="label-icon"><MailIcon /></span>
                 Email Address
               </label>
               <div className="input-wrapper">
@@ -149,7 +154,7 @@ const LoginPage = () => {
 
             <div className="form-group">
               <label htmlFor="password">
-                <span className="label-icon">🔒</span>
+                <span className="label-icon"><LockIcon /></span>
                 Password
               </label>
               <div className="input-wrapper">
@@ -169,7 +174,7 @@ const LoginPage = () => {
 
             {error && (
               <div className="error-message">
-                <span className="error-icon">⚠️</span>
+                <span className="error-icon"><AlertIcon /></span>
                 {error}
               </div>
             )}
@@ -188,7 +193,7 @@ const LoginPage = () => {
                 ) : (
                   <>
                     <span>Sign In</span>
-                    <span className="arrow">→</span>
+                    <span className="arrow"><ArrowRightIcon /></span>
                   </>
                 )}
               </span>
@@ -199,10 +204,10 @@ const LoginPage = () => {
           <div className="login-footer">
             <p>Don't have an account? <span className="link">Sign up</span></p>
             <div className="demo-request-link" onClick={() => setShowDemoForm(true)}>
-              Request a Professional Demo 🚀
+              Request a Professional Demo <RocketIcon className="inline-icon" />
             </div>
             <div className="demo-badge">
-              <span className="demo-icon">🎯</span>
+              <span className="demo-icon"><TargetIcon /></span>
               <span className="demo-text">Demo: test@ecomine.com / Test@123</span>
             </div>
           </div>
@@ -212,7 +217,7 @@ const LoginPage = () => {
         {showDemoForm && (
           <div className="demo-modal-overlay">
             <div className="demo-modal">
-              <button className="close-modal" onClick={() => setShowDemoForm(false)}>×</button>
+              <button className="close-modal" onClick={() => setShowDemoForm(false)}><CloseIcon /></button>
               <h2>Request Platform Demo</h2>
               <p>Experience the full power of ECOMINE AI</p>
               <form onSubmit={handleDemoSubmit}>
@@ -237,7 +242,7 @@ const LoginPage = () => {
             <div className="info-card" data-tilt>
               <div className="card-icon-wrapper">
                 <div className="card-icon-glow"></div>
-                <span className="card-icon">🔬</span>
+                <span className="card-icon"><MicroscopeIcon width="24" height="24" /></span>
               </div>
               <h3>Advanced AI Models</h3>
               <p>Ensemble of Random Forest, XGBoost, and Neural Networks</p>
@@ -249,7 +254,7 @@ const LoginPage = () => {
             <div className="info-card" data-tilt>
               <div className="card-icon-wrapper">
                 <div className="card-icon-glow"></div>
-                <span className="card-icon">📊</span>
+                <span className="card-icon"><ChartIcon width="24" height="24" /></span>
               </div>
               <h3>Comprehensive LCA</h3>
               <p>ISO 14040/44 compliant life cycle assessments</p>
@@ -261,7 +266,7 @@ const LoginPage = () => {
             <div className="info-card" data-tilt>
               <div className="card-icon-wrapper">
                 <div className="card-icon-glow"></div>
-                <span className="card-icon">♻️</span>
+                <span className="card-icon"><RecycleIcon width="24" height="24" /></span>
               </div>
               <h3>Circularity Focus</h3>
               <p>Material flow analysis and recycling potential</p>
@@ -273,7 +278,7 @@ const LoginPage = () => {
             <div className="info-card" data-tilt>
               <div className="card-icon-wrapper">
                 <div className="card-icon-glow"></div>
-                <span className="card-icon">🇮🇳</span>
+                <span className="card-icon"><IndiaIcon width="24" height="24" /></span>
               </div>
               <h3>India-First</h3>
               <p>Tailored for Indian metallurgists and engineers</p>
@@ -284,9 +289,9 @@ const LoginPage = () => {
           </div>
 
           <div className="trust-badges">
-            <div className="badge">✓ ISO Certified</div>
-            <div className="badge">✓ CBAM Ready</div>
-            <div className="badge">✓ BRSR Compliant</div>
+            <div className="badge"><CheckIcon width="14" height="14" /> ISO Certified</div>
+            <div className="badge"><CheckIcon width="14" height="14" /> CBAM Ready</div>
+            <div className="badge"><CheckIcon width="14" height="14" /> BRSR Compliant</div>
           </div>
         </div>
       </div>

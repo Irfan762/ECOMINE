@@ -2,14 +2,14 @@ const User = require('../models/User');
 
 const checkSubscription = async (req, res, next) => {
   try {
-    // Handle mock user
-    if (req.userId === 'mock-user-123') {
+    // Handle mock user (standard offline ID or demo account ID)
+    if (req.userId === '507f1f77bcf86cd799439011' || (req.userId && req.userId.startsWith('mock-'))) {
       return next();
     }
 
     if (require('mongoose').connection.readyState !== 1) {
       console.warn('⚠️ Database is offline. Operating in Offline/Mock mode.');
-      req.userId = req.userId || 'mock-user-123';
+      req.userId = '507f1f77bcf86cd799439011';
       return next(); 
     }
 

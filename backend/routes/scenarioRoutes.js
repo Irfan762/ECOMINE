@@ -8,25 +8,29 @@ const {
   compareScenarios
 } = require('../controllers/scenarioController');
 const { verifyToken } = require('../middleware/authMiddleware');
+const { checkSubscription } = require('../middleware/subscriptionMiddleware');
 
 const router = express.Router();
 
+router.use(verifyToken);
+router.use(checkSubscription);
+
 // Create Scenario
-router.post('/', verifyToken, createScenario);
+router.post('/', createScenario);
 
 // Get Scenarios
-router.get('/', verifyToken, getScenarios);
+router.get('/', getScenarios);
 
 // Get Single Scenario
-router.get('/:id', verifyToken, getScenario);
+router.get('/:id', getScenario);
 
 // Update Scenario
-router.put('/:id', verifyToken, updateScenario);
+router.put('/:id', updateScenario);
 
 // Delete Scenario
-router.delete('/:id', verifyToken, deleteScenario);
+router.delete('/:id', deleteScenario);
 
 // Compare Scenarios
-router.post('/compare', verifyToken, compareScenarios);
+router.post('/compare', compareScenarios);
 
 module.exports = router;

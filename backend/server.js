@@ -36,11 +36,11 @@ app.use('/api/subscription', require('./routes/subscriptionRoutes'));
 app.use('/api/admin', require('./routes/adminRoutes'));
 app.use('/api/demo', require('./routes/demoRoutes'));
 
-// Protected core routes - require subscription
-app.use('/api/assessments', checkSubscription, require('./routes/assessmentRoutes'));
-app.use('/api/scenarios', checkSubscription, require('./routes/scenarioRoutes'));
-app.use('/api/reports', checkSubscription, require('./routes/reportRoutes'));
-app.use('/api/csv', checkSubscription, require('./routes/csvRoutes'));
+// Protected core routes
+app.use('/api/assessments', require('./routes/assessmentRoutes'));
+app.use('/api/scenarios', require('./routes/scenarioRoutes'));
+app.use('/api/reports', require('./routes/reportRoutes'));
+app.use('/api/csv', require('./routes/csvRoutes'));
 
 // Health Check
 app.get('/api/health', (req, res) => {

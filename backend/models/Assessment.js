@@ -15,7 +15,7 @@ const assessmentSchema = new mongoose.Schema({
     type: Number,
     required: true,
     min: 0.1,
-    max: 10
+    max: 100
   },
   productionCapacity: {
     type: Number,

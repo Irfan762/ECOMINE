@@ -44,16 +44,34 @@ exports.createAssessment = async (req, res) => {
       carbonCreditPriceUSD: parseFloat(req.body.carbonCreditPriceUSD || 8)
     };
 
-    // Run full LCA calculation
+    // Run standard LCA calculation (for baseline and fallback)
     const lcaResult = LCA_ENGINE.runFullLCA(lcaInputs);
 
-    // Augment with ML predictions if possible
-    let mlPredictions = null;
+    // Primary: Augment and Overwrite with ML predictions
     try {
-      mlPredictions = await ML_PREDICTOR.predict(lcaInputs);
-      lcaResult.mlPredictions = mlPredictions;
+      // Get the specific grid factor for the ML model
+      const gridFactors = {
+        india_national: 0.716, india_coal_belt: 0.820, india_south: 0.650, 
+        india_west: 0.680, india_north: 0.730, india_northeast: 0.510,
+        china: 0.581, europe: 0.233, nordics: 0.028, gcc: 0.542, usa: 0.386
+      };
+      lcaInputs.gridFactor = gridFactors[lcaInputs.gridZone] || 0.716;
+
+      const mlPredictions = await ML_PREDICTOR.predict(lcaInputs);
+      
+      // Map ML predictions back into the main results object
+      if (mlPredictions && mlPredictions.co2_kg) {
+        lcaResult.inventory.totals.co2_kg = mlPredictions.co2_kg.predicted;
+        lcaResult.inventory.totals.energy_GJ = mlPredictions.energy_GJ.predicted;
+        lcaResult.inventory.totals.water_L = mlPredictions.water_L.predicted;
+        
+        lcaResult.uncertainty.co2_range = [mlPredictions.co2_kg.ci_low, mlPredictions.co2_kg.ci_high];
+        lcaResult.uncertainty.confidence_pct = mlPredictions.co2_kg.confidence_pct;
+        
+        lcaResult.modelUsed = 'ML Predictive Engine (RandomForest/GBM) + India LCI';
+      }
     } catch (mlError) {
-      console.warn('ML Prediction failed (continuing with standard LCA):', mlError.message);
+      console.warn('ML Prediction failed (falling back to standard LCA):', mlError.message);
     }
 
     const assessment = new Assessment({
@@ -87,6 +105,23 @@ exports.createAssessment = async (req, res) => {
       };
 
       const lcaResult = LCA_ENGINE.runFullLCA(lcaInputs);
+
+      // Try ML in fallback mode too
+      try {
+        const gridFactors = {
+          india_national: 0.716, india_coal_belt: 0.820, india_south: 0.650, 
+          india_west: 0.680, india_north: 0.730, india_northeast: 0.510,
+          china: 0.581, europe: 0.233, nordics: 0.028, gcc: 0.542, usa: 0.386
+        };
+        lcaInputs.gridFactor = gridFactors[lcaInputs.gridZone] || 0.716;
+        const mlPredictions = await ML_PREDICTOR.predict(lcaInputs);
+        if (mlPredictions && mlPredictions.co2_kg) {
+          lcaResult.inventory.totals.co2_kg = mlPredictions.co2_kg.predicted;
+          lcaResult.inventory.totals.energy_GJ = mlPredictions.energy_GJ.predicted;
+          lcaResult.inventory.totals.water_L = mlPredictions.water_L.predicted;
+          lcaResult.modelUsed = 'ML Predictive Engine (RandomForest/GBM) + India LCI';
+        }
+      } catch (e) {}
 
       res.status(201).json({
         _id: 'mock-' + Date.now(),

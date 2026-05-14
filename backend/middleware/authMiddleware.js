@@ -6,7 +6,7 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     if (require('mongoose').connection.readyState !== 1) {
       console.warn('⚠️ No token provided, but allowing access because Database is offline (Offline Mode).');
-      req.userId = 'mock-user-123';
+      req.userId = '507f1f77bcf86cd799439011';
       return next();
     }
     return res.status(401).json({ error: 'No token provided' });
@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
     next();
   } catch (error) {
     if (require('mongoose').connection.readyState !== 1) {
-      req.userId = 'mock-user-123';
+      req.userId = '507f1f77bcf86cd799439011';
       return next();
     }
     return res.status(403).json({ error: 'Invalid token' });

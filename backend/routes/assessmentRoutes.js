@@ -7,11 +7,15 @@ const {
   deleteAssessment
 } = require('../controllers/assessmentController');
 const { verifyToken } = require('../middleware/authMiddleware');
+const { checkSubscription } = require('../middleware/subscriptionMiddleware');
 
 const router = express.Router();
 
+router.use(verifyToken);
+router.use(checkSubscription);
+
 // Create Assessment
-router.post('/', verifyToken, [
+router.post('/', [
   body('metalType', 'Valid metal type required').isIn(['aluminum', 'copper', 'steel']),
   body('oreGrade', 'Ore grade required').isFloat({ min: 0.1, max: 10 }),
   body('location', 'Valid location required').isIn(['china', 'india', 'europe', 'nordics', 'gcc']),
@@ -20,12 +24,12 @@ router.post('/', verifyToken, [
 ], createAssessment);
 
 // Get Assessments
-router.get('/', verifyToken, getAssessments);
+router.get('/', getAssessments);
 
 // Get Single Assessment
-router.get('/:id', verifyToken, getAssessment);
+router.get('/:id', getAssessment);
 
 // Delete Assessment
-router.delete('/:id', verifyToken, deleteAssessment);
+router.delete('/:id', deleteAssessment);
 
 module.exports = router;

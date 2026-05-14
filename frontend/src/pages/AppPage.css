@@ -10,6 +10,16 @@
   --status-height: 35px;
 }
 
+[data-theme="light"] {
+  --primary-cyan: #059669;
+  --accent-cyan: #10b981;
+  --dark-bg: #f8fafc;
+  --darker-bg: #ffffff;
+  --text-light: #1e293b;
+  --text-mid: #475569;
+  --border-glow: rgba(5, 150, 105, 0.2);
+}
+
 .app-page {
   min-height: 100vh;
   display: flex;
@@ -89,7 +99,7 @@
 /* Navigation */
 .app-nav {
   height: var(--nav-height);
-  background: rgba(31, 41, 55, 0.9);
+  background: var(--darker-bg);
   backdrop-filter: blur(30px);
   border-bottom: 1px solid var(--border-glow);
   display: flex;
@@ -330,7 +340,7 @@
   position: absolute;
   top: calc(100% + 1rem);
   right: 0;
-  background: rgba(31, 41, 55, 0.95);
+  background: var(--darker-bg);
   backdrop-filter: blur(30px);
   border: 1px solid var(--border-glow);
   border-radius: 12px;
@@ -405,7 +415,7 @@
 /* Status Bar */
 .status-bar {
   height: var(--status-height);
-  background: rgba(31, 41, 55, 0.9);
+  background: var(--darker-bg);
   backdrop-filter: blur(30px);
   border-top: 1px solid var(--border-glow);
   display: flex;

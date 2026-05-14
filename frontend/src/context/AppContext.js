@@ -12,6 +12,16 @@ export const AppProvider = ({ children }) => {
   const [isInitializing, setIsInitializing] = useState(true);
   const [error, setError] = useState(null);
   const [notification, setNotification] = useState(null);
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'dark');
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+  };
 
   const showNotification = useCallback((message, type = 'success') => {
     setNotification({ message, type });
@@ -154,7 +164,9 @@ export const AppProvider = ({ children }) => {
     register,
     logout,
     notification,
-    showNotification
+    showNotification,
+    theme,
+    toggleTheme
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;

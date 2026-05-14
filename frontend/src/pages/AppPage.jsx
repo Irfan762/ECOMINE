@@ -6,6 +6,11 @@ import Analytics from '../components/Analytics';
 import Scenarios from '../components/Scenarios';
 import Reports from '../components/Reports';
 import CSVUpload from '../components/CSVUpload';
+import { 
+  LeafIcon, ChartIcon, MicroscopeIcon, TrendingUpIcon, 
+  TargetIcon, FileIcon, ShieldIcon, SettingsIcon, 
+  UserIcon, LogOutIcon, LockIcon, ZapIcon 
+} from '../components/Icons';
 import './AppPage.css';
 
 const AppPage = () => {
@@ -61,7 +66,7 @@ const AppPage = () => {
       <nav className="app-nav">
         <div className="nav-logo">
           <div className="logo-glow-nav"></div>
-          <span className="logo-icon">🌿</span>
+          <span className="logo-icon"><LeafIcon width="24" height="24" /></span>
           <div className="logo-text-wrapper">
             <span className="logo-text">ECOMINE</span>
             <span className="logo-subtitle">Enterprise</span>
@@ -73,7 +78,7 @@ const AppPage = () => {
             className={`nav-item ${activeSection === 'dashboard' ? 'active' : ''}`}
             onClick={() => handleSectionChange('dashboard')}
           >
-            <span className="nav-icon">📊</span>
+            <span className="nav-icon"><ChartIcon /></span>
             <span className="nav-label">Dashboard</span>
             <div className="nav-indicator"></div>
           </button>
@@ -81,7 +86,7 @@ const AppPage = () => {
             className={`nav-item ${activeSection === 'calculator' ? 'active' : ''}`}
             onClick={() => handleSectionChange('calculator')}
           >
-            <span className="nav-icon">🔬</span>
+            <span className="nav-icon"><MicroscopeIcon /></span>
             <span className="nav-label">Calculator</span>
             <div className="nav-indicator"></div>
           </button>
@@ -89,7 +94,7 @@ const AppPage = () => {
             className={`nav-item ${activeSection === 'csv-upload' ? 'active' : ''}`}
             onClick={() => handleSectionChange('csv-upload')}
           >
-            <span className="nav-icon">📊</span>
+            <span className="nav-icon"><ChartIcon /></span>
             <span className="nav-label">Batch Upload</span>
             <div className="nav-indicator"></div>
           </button>
@@ -97,7 +102,7 @@ const AppPage = () => {
             className={`nav-item ${activeSection === 'analytics' ? 'active' : ''}`}
             onClick={() => handleSectionChange('analytics')}
           >
-            <span className="nav-icon">📈</span>
+            <span className="nav-icon"><TrendingUpIcon /></span>
             <span className="nav-label">Analytics</span>
             <div className="nav-indicator"></div>
           </button>
@@ -105,7 +110,7 @@ const AppPage = () => {
             className={`nav-item ${activeSection === 'scenarios' ? 'active' : ''}`}
             onClick={() => handleSectionChange('scenarios')}
           >
-            <span className="nav-icon">🎯</span>
+            <span className="nav-icon"><TargetIcon /></span>
             <span className="nav-label">Scenarios</span>
             <div className="nav-indicator"></div>
           </button>
@@ -113,7 +118,7 @@ const AppPage = () => {
             className={`nav-item ${activeSection === 'reports' ? 'active' : ''}`}
             onClick={() => handleSectionChange('reports')}
           >
-            <span className="nav-icon">📄</span>
+            <span className="nav-icon"><FileIcon /></span>
             <span className="nav-label">Reports</span>
             <div className="nav-indicator"></div>
           </button>
@@ -132,18 +137,18 @@ const AppPage = () => {
             <div className="user-menu">
               {user?.role === 'admin' && (
                 <div className="menu-item" onClick={() => window.location.href = '/admin'}>
-                  <span>🛡️</span> Admin Dashboard
+                  <span><ShieldIcon width="16" height="16" /></span> Admin Dashboard
                 </div>
               )}
               <div className="menu-item">
-                <span>⚙️</span> Settings
+                <span><SettingsIcon width="16" height="16" /></span> Settings
               </div>
               <div className="menu-item">
-                <span>👤</span> Profile
+                <span><UserIcon width="16" height="16" /></span> Profile
               </div>
               <div className="menu-divider"></div>
               <div className="menu-item" onClick={logout}>
-                <span>🚪</span> Logout
+                <span><LogOutIcon width="16" height="16" /></span> Logout
               </div>
             </div>
           )}
@@ -163,11 +168,11 @@ const AppPage = () => {
           <span>System Online</span>
         </div>
         <div className="status-item">
-          <span>🔒</span>
+          <span><LockIcon width="14" height="14" /></span>
           <span>Secure Connection</span>
         </div>
         <div className="status-item">
-          <span>⚡</span>
+          <span><ZapIcon width="14" height="14" /></span>
           <span>AI Models Active</span>
         </div>
       </div>
