@@ -9,12 +9,13 @@ import CSVUpload from '../components/CSVUpload';
 import { 
   LeafIcon, ChartIcon, MicroscopeIcon, TrendingUpIcon, 
   TargetIcon, FileIcon, ShieldIcon, SettingsIcon, 
-  UserIcon, LogOutIcon, LockIcon, ZapIcon 
+  UserIcon, LogOutIcon, LockIcon, ZapIcon,
+  SunIcon, MoonIcon
 } from '../components/Icons';
 import './AppPage.css';
 
 const AppPage = () => {
-  const { user, logout } = useContext(AppContext);
+  const { user, logout, theme, toggleTheme } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState('dashboard');
   const [showUserMenu, setShowUserMenu] = useState(false);
 
@@ -121,6 +122,20 @@ const AppPage = () => {
             <span className="nav-icon"><FileIcon /></span>
             <span className="nav-label">Reports</span>
             <div className="nav-indicator"></div>
+          </button>
+        </div>
+        
+        <div className="nav-actions">
+          <button 
+            className="theme-toggle-btn" 
+            onClick={toggleTheme}
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+          >
+            <div className={`toggle-track ${theme}`}>
+              <div className="toggle-thumb">
+                {theme === 'dark' ? <MoonIcon width="14" height="14" /> : <SunIcon width="14" height="14" />}
+              </div>
+            </div>
           </button>
         </div>
 

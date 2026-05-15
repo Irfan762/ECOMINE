@@ -7,12 +7,12 @@
   --success: #10b981;
   --warning: #FFB800;
   --danger: #FF4D4D;
-  --bg-dark: #111827;
-  --glass: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --bg-dark: var(--bg-main);
+  --glass: var(--glass);
+  --glass-border: var(--glass-border);
   --glass-glow: rgba(52, 211, 153, 0.1);
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
+  --text-primary: var(--text-main);
+  --text-secondary: var(--text-muted);
   --font-main: 'Inter', system-ui, sans-serif;
 }
 

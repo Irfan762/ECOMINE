@@ -5,12 +5,13 @@ import { initLoginParticles } from '../utils/particles';
 import { 
   LeafIcon, MailIcon, LockIcon, AlertIcon, ArrowRightIcon, 
   RocketIcon, TargetIcon, MicroscopeIcon, ChartIcon, 
-  RecycleIcon, IndiaIcon, CheckIcon, CloseIcon 
+  RecycleIcon, IndiaIcon, CheckIcon, CloseIcon,
+  SunIcon, MoonIcon
 } from '../components/Icons';
 import './LoginPage.css';
 
 const LoginPage = () => {
-  const { login, isLoading, error, showNotification } = useContext(AppContext);
+  const { login, isLoading, error, showNotification, theme, toggleTheme } = useContext(AppContext);
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
@@ -107,6 +108,19 @@ const LoginPage = () => {
 
   return (
     <div className="login-page">
+      <div className="login-top-actions">
+        <button 
+          className="theme-toggle-btn" 
+          onClick={toggleTheme}
+          title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          <div className={`toggle-track ${theme}`}>
+            <div className="toggle-thumb">
+              {theme === 'dark' ? <MoonIcon width="14" height="14" /> : <SunIcon width="14" height="14" />}
+            </div>
+          </div>
+        </button>
+      </div>
       {/* Animated Background */}
       <div className="login-background">
         <div className="gradient-orb orb-1"></div>

@@ -4,9 +4,9 @@
   right: 24px;
   z-index: 9999;
   min-width: 300px;
-  background: rgba(15, 23, 42, 0.9);
+  background: var(--bg-card);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 16px;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
@@ -23,7 +23,7 @@
 }
 
 .toast-container.success {
-  border-left: 4px solid #10b981;
+  border-left: 4px solid var(--primary);
 }
 
 .toast-container.error {
@@ -45,7 +45,7 @@
 }
 
 .toast-message {
-  color: #f8fafc;
+  color: var(--text-main);
   font-weight: 500;
   font-size: 0.95rem;
 }
@@ -55,14 +55,14 @@
   bottom: 0;
   left: 0;
   height: 3px;
-  background: rgba(255, 255, 255, 0.2);
+  background: var(--glass);
   width: 100%;
   transform-origin: left;
   animation: progress 5s linear forwards;
 }
 
 .success .toast-progress {
-  background: #10b981;
+  background: var(--primary);
 }
 
 .error .toast-progress {

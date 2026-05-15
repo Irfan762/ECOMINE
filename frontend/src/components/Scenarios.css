@@ -9,17 +9,17 @@
 
 .scenarios-header h2 {
   font-size: 2rem;
-  color: #34d399;
+  color: var(--primary);
   margin-bottom: 0.5rem;
 }
 
 .scenarios-header p {
-  color: #B0B8C1;
+  color: var(--text-muted);
 }
 
 .scenario-builder {
-  background: rgba(31, 184, 205, 0.08);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 2rem;
   backdrop-filter: blur(20px);
@@ -27,7 +27,7 @@
 }
 
 .scenario-builder h3 {
-  color: #34d399;
+  color: var(--primary);
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
 }
@@ -50,7 +50,7 @@
 }
 
 .form-section label {
-  color: #E2E8F0;
+  color: var(--text-main);
   font-size: 0.9rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -58,11 +58,11 @@
 
 .form-section input,
 .form-section select {
-  background: rgba(11, 20, 38, 0.8);
-  border: 1px solid rgba(52, 211, 153, 0.3);
+  background: var(--bg-main);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 0.75rem;
-  color: #E2E8F0;
+  color: var(--text-main);
   font-size: 0.95rem;
   transition: all 0.3s ease;
 }
@@ -70,16 +70,16 @@
 .form-section input:focus,
 .form-section select:focus {
   outline: none;
-  border-color: #34d399;
+  border-color: var(--primary);
   box-shadow: 0 0 20px rgba(52, 211, 153, 0.2);
 }
 
 .scenario-builder .btn-submit {
-  background: linear-gradient(135deg, #10b981, #34d399);
+  background: linear-gradient(135deg, var(--primary), var(--primary-accent));
   border: none;
   border-radius: 8px;
   padding: 1rem;
-  color: #0f172a;
+  color: #ffffff;
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
@@ -96,7 +96,7 @@
 }
 
 .scenarios-list h3 {
-  color: #34d399;
+  color: var(--primary);
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
 }
@@ -108,8 +108,8 @@
 }
 
 .scenario-card {
-  background: rgba(31, 184, 205, 0.08);
-  border: 1px solid rgba(52, 211, 153, 0.2);
+  background: var(--bg-card);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 1.5rem;
   backdrop-filter: blur(20px);
@@ -117,7 +117,7 @@
 }
 
 .scenario-card:hover {
-  border-color: rgba(52, 211, 153, 0.5);
+  border-color: var(--primary-accent);
   transform: translateY(-4px);
 }
 
@@ -129,7 +129,7 @@
 }
 
 .card-header h4 {
-  color: #E2E8F0;
+  color: var(--text-main);
   margin: 0;
   flex: 1;
 }
@@ -137,7 +137,7 @@
 .btn-delete {
   background: none;
   border: none;
-  color: #718096;
+  color: var(--text-muted);
   cursor: pointer;
   font-size: 1.2rem;
   transition: color 0.3s ease;
@@ -156,24 +156,24 @@
 
 .metric {
   font-size: 0.9rem;
-  color: #B0B8C1;
+  color: var(--text-muted);
 }
 
 .card-footer {
-  border-top: 1px solid rgba(52, 211, 153, 0.1);
+  border-top: 1px solid var(--border);
   padding-top: 0.75rem;
 }
 
 .card-footer small {
-  color: #718096;
+  color: var(--text-muted);
   font-size: 0.8rem;
 }
 
 .empty-state {
-  color: #718096;
+  color: var(--text-muted);
   text-align: center;
   padding: 2rem;
-  background: rgba(31, 184, 205, 0.05);
+  background: var(--bg-card);
   border-radius: 12px;
 }
 

@@ -1,0 +1,11 @@
+metalType,productionRoute,oreGrade,location,transportMode,processingRoute,productionCapacity,recycledContentPct,recycleRateEOL,productLifeYrs,dataQualityScore,carbonCreditPriceUSD,plantName,batchId,productionDate
+aluminum,primary,2.4,india,rail,pyrometallurgy,150000,0,0,10,3,15,Jamshedpur Smelter,JS-AL-2024-001,2024-05-01
+aluminum,recycled,0,india_south,road_truck,pyrometallurgy,50000,95,90,12,2,15,Chennai Recycling,CR-AL-2024-005,2024-05-02
+copper,primary,1.2,india_gujarat,rail,pyrometallurgy,80000,5,15,25,1,12,Dahej Refineries,DR-CU-2024-012,2024-05-03
+steel,primary,62.5,india_jharkhand,rail,pyrometallurgy,500000,0,0,30,4,10,Tata Steel Plant,TS-ST-2024-099,2024-05-04
+steel,recycled,0,india_west,rail,eaf,200000,85,92,20,2,10,Mumbai Electric Furnace,ME-ST-2024-022,2024-05-05
+copper,recycled,0,europe,ship_ocean,hydrometallurgy,30000,98,96,40,1,25,Rotterdam Hub,RH-CU-2024-003,2024-05-06
+aluminum,primary,4.5,nordics,rail,advanced,100000,0,0,15,1,30,Oslo Eco-Smelter,OE-AL-2024-001,2024-05-07
+steel,primary,58.0,china,rail,pyrometallurgy,1000000,5,10,25,3,5,Hebei Industrial,HI-ST-2024-501,2024-05-08
+copper,primary,0.8,india_rajasthan,road_truck,hydrometallurgy,45000,0,0,20,2,12,Khetri Mines,KM-CU-2024-088,2024-05-09
+aluminum,recycled,0,usa,rail,pyrometallurgy,120000,92,88,8,1,20,Alcoa Recycler,AR-AL-2024-009,2024-05-10
