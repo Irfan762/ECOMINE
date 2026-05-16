@@ -109,8 +109,6 @@ const Analytics = () => {
   
   // Extract values with fallbacks for both old and new structures
   const energyVal = totals.energy_GJ ?? results.energy?.value ?? 0;
-  const co2Val = totals.co2_kg ?? results.co2?.value ?? 0;
-  const waterVal = totals.water_L ?? results.water?.value ?? 0;
   
   // Extract confidence with fallbacks
   const energyConf = results.uncertainty?.confidence_pct ?? results.energy?.confidence ?? 85;

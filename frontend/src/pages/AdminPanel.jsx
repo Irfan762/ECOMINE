@@ -13,7 +13,6 @@ const AdminPanel = () => {
   const [demoRequests, setDemoRequests] = useState([]);
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [showAddUserModal, setShowAddUserModal] = useState(false);
 
   useEffect(() => {

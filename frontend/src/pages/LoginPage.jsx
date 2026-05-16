@@ -18,7 +18,7 @@ const LoginPage = () => {
     password: ''
   });
   const [showDemoForm, setShowDemoForm] = useState(false);
-  const [demoMessage, setDemoMessage] = useState('');
+  const [demoMessage] = useState('');
 
   const handleDemoSubmit = async (e) => {
     e.preventDefault();
@@ -35,7 +35,7 @@ const LoginPage = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(demoData)
       });
-      const data = await response.json();
+      await response.json();
       showNotification('Request sent successfully');
       setShowDemoForm(false);
     } catch (err) {

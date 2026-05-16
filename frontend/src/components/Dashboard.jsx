@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AppContext } from '../context/AppContext';
 import { assessmentService } from '../services/assessmentService';
-import { Line, Doughnut, Bar } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -36,7 +36,6 @@ const Dashboard = () => {
   const [assessments, setAssessments] = useState([]);
   const [loading, setLoading] = useState(true);
   const [animatedValues, setAnimatedValues] = useState({ energy: 0, co2: 0, water: 0, circularity: 0, roi: 0 });
-  const [lastRefresh, setLastRefresh] = useState(new Date());
 
   useEffect(() => {
     fetchAssessments();
@@ -49,7 +48,6 @@ const Dashboard = () => {
       if (response.data.length > 0 && !currentAssessment) {
         setCurrentAssessment(response.data[0]);
       }
-      setLastRefresh(new Date());
     } catch (error) {
       console.error('Failed to fetch assessments:', error);
     } finally {
@@ -126,7 +124,6 @@ const Dashboard = () => {
   const results = currentAssessment.results || {};
   const inventory = results.inventory || { totals: {}, stageBreakdown: {} };
   const lcia = results.lcia || { midpoint: {}, endpoint: {} };
-  const circularity = results.circularity || {};
   const financials = results.financials || { per_tonne_USD: {}, annual_USD: {} };
   const recommendations = results.recommendations || [];
   const mlPredictions = results.mlPredictions || null;
