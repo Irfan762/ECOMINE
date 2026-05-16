@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../services/api';
+import { AppContext } from '../context/AppContext';
 import { ArrowRightIcon, CloseIcon, TrendingUpIcon, SettingsIcon } from '../components/Icons';
 import './AdminPanel.css';
 
 const AdminPanel = () => {
   const navigate = useNavigate();
+  const { showNotification } = useContext(AppContext);
   const [activeSection, setActiveSection] = useState('users');
   const [users, setUsers] = useState([]);
   const [demoRequests, setDemoRequests] = useState([]);
@@ -13,7 +15,6 @@ const AdminPanel = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [showAddUserModal, setShowAddUserModal] = useState(false);
-  const { showNotification } = React.useContext(require('../context/AppContext').AppContext);
 
   useEffect(() => {
     fetchData();
