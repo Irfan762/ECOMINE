@@ -56,6 +56,14 @@ app.use('/api/scenarios', require('./routes/scenarioRoutes'));
 app.use('/api/reports', require('./routes/reportRoutes'));
 app.use('/api/csv', require('./routes/csvRoutes'));
 
+// Base API route
+app.get('/api', (req, res) => {
+  res.json({ 
+    message: 'Welcome to the ECOMINE API 🌿', 
+    endpoints: ['/api/auth', '/api/assessments', '/api/scenarios', '/api/health'] 
+  });
+});
+
 // Health Check
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ECOMINE API is running 🌿', timestamp: new Date() });
