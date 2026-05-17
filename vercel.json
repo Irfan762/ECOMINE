@@ -1,0 +1,18 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/build"
+      }
+    }
+  ],
+  "rewrites": [
+    { "source": "/landing.html", "destination": "/landing.html" },
+    { "source": "/landing.css", "destination": "/landing.css" },
+    { "source": "/landing.js", "destination": "/landing.js" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}

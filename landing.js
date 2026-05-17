@@ -646,6 +646,21 @@ rainbowStyle.textContent = `
     @keyframes rainbow {
         0% { filter: hue-rotate(0deg); }
         100% { filter: hue-rotate(360deg); }
-    }
-`;
 document.head.appendChild(rainbowStyle);
+
+// Dynamic Platform Link Resolution for Local Development
+document.addEventListener('DOMContentLoaded', () => {
+    const isLocalFile = window.location.protocol === 'file:';
+    const isLocalServer = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+    
+    // If opening landing.html locally (either via file:// or via a separate static server port),
+    // point the launch links to the React dev server on port 3000.
+    const isLocalPlatformDev = isLocalFile || (isLocalServer && window.location.port !== '3000');
+    
+    if (isLocalPlatformDev) {
+        const launchButtons = document.querySelectorAll('a[href="/login"]');
+        launchButtons.forEach(btn => {
+            btn.setAttribute('href', 'http://localhost:3000/login');
+        });
+    }
+});
