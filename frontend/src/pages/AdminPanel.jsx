@@ -53,7 +53,7 @@ const AdminPanel = () => {
       setStats(statsRes.data);
       setDemoRequests(demoRes.data);
     } catch (err) {
-      setError('Failed to fetch admin data');
+      showNotification('Failed to fetch admin data', 'error');
     } finally {
       setLoading(false);
     }
