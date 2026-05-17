@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOMINE - AI-Powered Sustainability Intelligence</title>
+    <link rel="stylesheet" href="landing.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="animated-background">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="wave wave1"></div>
+        <div class="wave wave2"></div>
+        <div class="wave wave3"></div>
+        <div class="grid-overlay"></div>
+        <canvas id="particleCanvas"></canvas>
+        <div class="aurora aurora-1"></div>
+        <div class="aurora aurora-2"></div>
+        <div class="aurora aurora-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="landing-nav">
+        <div class="nav-container">
+            <div class="logo-section">
+                <div class="logo-icon-animated"></div>
+                <span class="logo-text">ECOMINE</span>
+            </div>
+            <div class="nav-menu">
+                <a href="#features" class="nav-item">Features</a>
+                <a href="#technology" class="nav-item">Technology</a>
+                <a href="#impact" class="nav-item">Impact</a>
+                <div class="api-status" id="apiStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Checking...</span>
+                </div>
+                <a href="/login" class="btn-launch">Launch Platform</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <div class="hero-badge" data-aos="fade-down">
+                <span class="badge-dot"></span>
+                <span class="badge-text">AI-Powered Sustainability Intelligence</span>
+                <div class="badge-glow"></div>
+            </div>
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                <span class="word-animate">Transform</span>
+                <span class="word-animate">Your</span>
+                <br>
+                <span class="gradient-text typing-effect">Environmental Impact</span>
+                <br>
+                <span class="word-animate">with</span>
+                <span class="word-animate">AI</span>
+            </h1>
+            <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                <span class="highlight-text">Reduce LCA complexity</span> from 70+ parameters to 5-7 inputs. 
+                Get enterprise-grade sustainability insights with <span class="highlight-text">85-99% AI accuracy</span>.
+            </p>
+            <div class="hero-actions" data-aos="fade-up" data-aos-delay="300">
+                <a href="/login" class="btn-primary-large magnetic-btn">
+                    <span class="btn-content">
+                        <span>Get Started</span>
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </span>
+                    <div class="btn-shine"></div>
+                </a>
+                <button class="btn-secondary-large magnetic-btn" onclick="playDemo()">
+                    <span class="btn-content">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                            <path d="M6.66667 4.16667L15 10L6.66667 15.8333V4.16667Z" fill="currentColor"/>
+                        </svg>
+                        <span>Watch Demo</span>
+                    </span>
+                    <div class="btn-particles"></div>
+                </button>
+            </div>
+            <div class="hero-stats" data-aos="fade-up" data-aos-delay="400">
+                <div class="stat-item" data-tilt>
+                    <div class="stat-icon">🌍</div>
+                    <div class="stat-number" data-target="15847">0</div>
+                    <div class="stat-label">Global Assessments</div>
+                    <div class="stat-glow"></div>
+                </div>
+                <div class="stat-divider">
+                    <div class="divider-pulse"></div>
+                </div>
+                <div class="stat-item" data-tilt>
+                    <div class="stat-icon">🌿</div>
+                    <div class="stat-number" data-target="847250">0</div>
+                    <div class="stat-label">Tonnes CO₂ Reduced</div>
+                    <div class="stat-glow"></div>
+                </div>
+                <div class="stat-divider">
+                    <div class="divider-pulse"></div>
+                </div>
+                <div class="stat-item" data-tilt>
+                    <div class="stat-icon">🏢</div>
+                    <div class="stat-number" data-target="342">0</div>
+                    <div class="stat-label">Enterprise Clients</div>
+                    <div class="stat-glow"></div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual" data-aos="fade-left" data-aos-delay="200">
+            <!-- Parallax Layers -->
+            <div class="parallax-layer layer-1" data-speed="0.3">
+                <div class="floating-card card-1">
+                    <div class="card-icon">🌍</div>
+                    <div class="card-content">
+                        <div class="card-title">Energy Prediction</div>
+                        <div class="card-value">96% Accuracy</div>
+                        <div class="card-progress">
+                            <div class="progress-fill" style="width: 96%"></div>
+                        </div>
+                    </div>
+                    <div class="card-sparkle"></div>
+                </div>
+            </div>
+            
+            <div class="parallax-layer layer-2" data-speed="0.5">
+                <div class="floating-card card-2">
+                    <div class="card-icon">🌿</div>
+                    <div class="card-content">
+                        <div class="card-title">CO₂ Analysis</div>
+                        <div class="card-value">94% Confidence</div>
+                        <div class="card-progress">
+                            <div class="progress-fill" style="width: 94%"></div>
+                        </div>
+                    </div>
+                    <div class="card-sparkle"></div>
+                </div>
+            </div>
+            
+            <div class="parallax-layer layer-3" data-speed="0.7">
+                <div class="floating-card card-3">
+                    <div class="card-icon">💧</div>
+                    <div class="card-content">
+                        <div class="card-title">Water Usage</div>
+                        <div class="card-value">89% Precision</div>
+                        <div class="card-progress">
+                            <div class="progress-fill" style="width: 89%"></div>
+                        </div>
+                    </div>
+                    <div class="card-sparkle"></div>
+                </div>
+            </div>
+            
+            <div class="parallax-layer layer-4" data-speed="0.4">
+                <div class="globe-container">
+                    <div class="globe">
+                        <div class="globe-inner"></div>
+                        <div class="globe-shine"></div>
+                    </div>
+                    <div class="orbit orbit-1">
+                        <div class="orbit-dot"></div>
+                    </div>
+                    <div class="orbit orbit-2">
+                        <div class="orbit-dot"></div>
+                    </div>
+                    <div class="orbit orbit-3">
+                        <div class="orbit-dot"></div>
+                    </div>
+                    <div class="data-stream stream-1"></div>
+                    <div class="data-stream stream-2"></div>
+                    <div class="data-stream stream-3"></div>
+                </div>
+            </div>
+            
+            <!-- Additional Parallax Elements -->
+            <div class="parallax-layer layer-5" data-speed="0.2">
+                <div class="parallax-shape shape-1"></div>
+            </div>
+            <div class="parallax-layer layer-6" data-speed="0.6">
+                <div class="parallax-shape shape-2"></div>
+            </div>
+            <div class="parallax-layer layer-7" data-speed="0.8">
+                <div class="parallax-shape shape-3"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features-section">
+        <div class="section-container">
+            <div class="section-header-center" data-aos="fade-up">
+                <div class="section-badge shimmer">Powerful Features</div>
+                <h2 class="section-title">
+                    <span class="word-reveal">Everything</span>
+                    <span class="word-reveal">You</span>
+                    <span class="word-reveal">Need</span>
+                    <span class="word-reveal">for</span>
+                    <br>
+                    <span class="gradient-text neon-glow">Sustainability Excellence</span>
+                </h2>
+                <p class="section-description">Comprehensive AI-powered tools for environmental impact assessment</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card perspective-card" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-wrapper">
+                            <div class="icon-glow"></div>
+                            <div class="feature-icon">🤖</div>
+                        </div>
+                        <h3 class="feature-title">AI Calculator</h3>
+                        <p class="feature-description">Transform 70+ parameters into 5-7 critical inputs with ensemble AI models</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">🌲</span> Random Forest predictions</li>
+                            <li><span class="list-icon">🧠</span> Neural network analysis</li>
+                            <li><span class="list-icon">🚀</span> XGBoost optimization</li>
+                        </ul>
+                        <div class="feature-hover-effect"></div>
+                        <div class="card-corner corner-tl"></div>
+                        <div class="card-corner corner-tr"></div>
+                        <div class="card-corner corner-bl"></div>
+                        <div class="card-corner corner-br"></div>
+                    </div>
+                </div>
+                <div class="feature-card perspective-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-wrapper">
+                            <div class="icon-glow"></div>
+                            <div class="feature-icon">📊</div>
+                        </div>
+                        <h3 class="feature-title">Real-time Analytics</h3>
+                        <p class="feature-description">Live monitoring and advanced visualization of environmental metrics</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">🔥</span> Hotspot identification</li>
+                            <li><span class="list-icon">📈</span> Trend analysis</li>
+                            <li><span class="list-icon">⚖️</span> Benchmark comparison</li>
+                        </ul>
+                        <div class="feature-hover-effect"></div>
+                        <div class="card-corner corner-tl"></div>
+                        <div class="card-corner corner-tr"></div>
+                        <div class="card-corner corner-bl"></div>
+                        <div class="card-corner corner-br"></div>
+                    </div>
+                </div>
+                <div class="feature-card perspective-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-wrapper">
+                            <div class="icon-glow"></div>
+                            <div class="feature-icon">🔬</div>
+                        </div>
+                        <h3 class="feature-title">Scenario Modeling</h3>
+                        <p class="feature-description">AI-powered what-if analysis and optimization recommendations</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">🔄</span> Multi-scenario comparison</li>
+                            <li><span class="list-icon">📉</span> Sensitivity analysis</li>
+                            <li><span class="list-icon">⚡</span> Optimization engine</li>
+                        </ul>
+                        <div class="feature-hover-effect"></div>
+                        <div class="card-corner corner-tl"></div>
+                        <div class="card-corner corner-tr"></div>
+                        <div class="card-corner corner-bl"></div>
+                        <div class="card-corner corner-br"></div>
+                    </div>
+                </div>
+                <div class="feature-card perspective-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-wrapper">
+                            <div class="icon-glow"></div>
+                            <div class="feature-icon">📋</div>
+                        </div>
+                        <h3 class="feature-title">Compliance Reports</h3>
+                        <p class="feature-description">Professional documentation for ISO, CBAM, BRSR, and more</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">✓</span> ISO 14040/44 certified</li>
+                            <li><span class="list-icon">✓</span> CBAM ready</li>
+                            <li><span class="list-icon">✓</span> Executive summaries</li>
+                        </ul>
+                        <div class="feature-hover-effect"></div>
+                        <div class="card-corner corner-tl"></div>
+                        <div class="card-corner corner-tr"></div>
+                        <div class="card-corner corner-bl"></div>
+                        <div class="card-corner corner-br"></div>
+                    </div>
+                </div>
+                <div class="feature-card perspective-card" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-wrapper">
+                            <div class="icon-glow"></div>
+                            <div class="feature-icon">🌐</div>
+                        </div>
+                        <h3 class="feature-title">Global Coverage</h3>
+                        <p class="feature-description">Regional factors for accurate worldwide assessments</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">🌍</span> 28+ countries</li>
+                            <li><span class="list-icon">⚡</span> Regional grid mix</li>
+                            <li><span class="list-icon">📜</span> Local regulations</li>
+                        </ul>
+                        <div class="feature-hover-effect"></div>
+                        <div class="card-corner corner-tl"></div>
+                        <div class="card-corner corner-tr"></div>
+                        <div class="card-corner corner-bl"></div>
+                        <div class="card-corner corner-br"></div>
+                    </div>
+                </div>
+                <div class="feature-card perspective-card" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="feature-card-inner">
+                        <div class="feature-icon-wrapper">
+                            <div class="icon-glow"></div>
+                            <div class="feature-icon">⚡</div>
+                        </div>
+                        <h3 class="feature-title">Lightning Fast</h3>
+                        <p class="feature-description">92% time reduction compared to traditional LCA methods</p>
+                        <ul class="feature-list">
+                            <li><span class="list-icon">⚡</span> Instant predictions</li>
+                            <li><span class="list-icon">🔄</span> Real-time updates</li>
+                            <li><span class="list-icon">📦</span> Batch processing</li>
+                        </ul>
+                        <div class="feature-hover-effect"></div>
+                        <div class="card-corner corner-tl"></div>
+                        <div class="card-corner corner-tr"></div>
+                        <div class="card-corner corner-bl"></div>
+                        <div class="card-corner corner-br"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="technology-section">
+        <div class="section-container">
+            <div class="tech-content">
+                <div class="tech-visual" data-aos="fade-right">
+                    <div class="ai-brain-visual">
+                        <div class="brain-core-large">
+                            <div class="core-pulse"></div>
+                            <div class="core-ring ring-1"></div>
+                            <div class="core-ring ring-2"></div>
+                            <div class="core-ring ring-3"></div>
+                        </div>
+                        <div class="neural-connections">
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                            <div class="connection"></div>
+                        </div>
+                        <div class="data-nodes">
+                            <div class="node node-1">
+                                <div class="node-pulse"></div>
+                            </div>
+                            <div class="node node-2">
+                                <div class="node-pulse"></div>
+                            </div>
+                            <div class="node node-3">
+                                <div class="node-pulse"></div>
+                            </div>
+                            <div class="node node-4">
+                                <div class="node-pulse"></div>
+                            </div>
+                        </div>
+                        <div class="energy-particles">
+                            <div class="energy-particle"></div>
+                            <div class="energy-particle"></div>
+                            <div class="energy-particle"></div>
+                            <div class="energy-particle"></div>
+                            <div class="energy-particle"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tech-info" data-aos="fade-left">
+                    <div class="section-badge shimmer">Advanced Technology</div>
+                    <h2 class="section-title">
+                        Powered by
+                        <br>
+                        <span class="gradient-text">Ensemble AI Models</span>
+                    </h2>
+                    <p class="tech-description">
+                        Our platform combines three state-of-the-art machine learning models to deliver 
+                        unparalleled accuracy in environmental impact predictions.
+                    </p>
+                    <div class="tech-models">
+                        <div class="model-item" data-aos="fade-up" data-aos-delay="100">
+                            <div class="model-header">
+                                <div class="model-icon-wrapper">
+                                    <div class="model-icon">🌲</div>
+                                </div>
+                                <div>
+                                    <h4>Random Forest</h4>
+                                    <span class="model-badge">Primary Model</span>
+                                </div>
+                            </div>
+                            <p>Energy & CO₂ predictions with 96% accuracy</p>
+                            <div class="accuracy-bar">
+                                <div class="accuracy-fill" style="width: 96%">
+                                    <span class="accuracy-label">96%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-item" data-aos="fade-up" data-aos-delay="200">
+                            <div class="model-header">
+                                <div class="model-icon-wrapper">
+                                    <div class="model-icon">🚀</div>
+                                </div>
+                                <div>
+                                    <h4>XGBoost</h4>
+                                    <span class="model-badge">Optimization</span>
+                                </div>
+                            </div>
+                            <p>CO₂ and efficiency metrics optimization</p>
+                            <div class="accuracy-bar">
+                                <div class="accuracy-fill" style="width: 94%">
+                                    <span class="accuracy-label">94%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="model-item" data-aos="fade-up" data-aos-delay="300">
+                            <div class="model-header">
+                                <div class="model-icon-wrapper">
+                                    <div class="model-icon">🧠</div>
+                                </div>
+                                <div>
+                                    <h4>Neural Networks</h4>
+                                    <span class="model-badge">Deep Learning</span>
+                                </div>
+                            </div>
+                            <p>Water usage and circularity assessment</p>
+                            <div class="accuracy-bar">
+                                <div class="accuracy-fill" style="width: 89%">
+                                    <span class="accuracy-label">89%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Section -->
+    <section id="impact" class="impact-section">
+        <div class="section-container">
+            <div class="section-header-center" data-aos="fade-up">
+                <div class="section-badge shimmer">Global Impact</div>
+                <h2 class="section-title">
+                    Making a <span class="gradient-text neon-glow">Real Difference</span>
+                </h2>
+                <p class="section-description">Join 342 enterprises across 28 countries in their sustainability journey</p>
+            </div>
+            <div class="impact-grid">
+                <div class="impact-card" data-aos="zoom-in" data-aos-delay="0">
+                    <div class="impact-icon">🌍</div>
+                    <div class="impact-number" data-count="847250">0</div>
+                    <div class="impact-label">Tonnes CO₂ Reduced</div>
+                    <div class="impact-trend positive">
+                        <span class="trend-arrow">↑</span>
+                        +31% this quarter
+                    </div>
+                    <div class="impact-glow"></div>
+                    <div class="impact-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+                <div class="impact-card" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="impact-icon">💰</div>
+                    <div class="impact-number" data-count="2847">0</div>
+                    <div class="impact-unit">Crore</div>
+                    <div class="impact-label">Cost Savings</div>
+                    <div class="impact-trend positive">
+                        <span class="trend-arrow">↑</span>
+                        92% time reduction
+                    </div>
+                    <div class="impact-glow"></div>
+                    <div class="impact-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+                <div class="impact-card" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="impact-icon">📊</div>
+                    <div class="impact-number" data-count="15847">0</div>
+                    <div class="impact-label">Assessments Completed</div>
+                    <div class="impact-trend positive">
+                        <span class="trend-arrow">↑</span>
+                        +23% growth
+                    </div>
+                    <div class="impact-glow"></div>
+                    <div class="impact-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+                <div class="impact-card" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="impact-icon">🌐</div>
+                    <div class="impact-number" data-count="28">0</div>
+                    <div class="impact-label">Countries Served</div>
+                    <div class="impact-trend positive">
+                        <span class="trend-arrow">↑</span>
+                        Global reach
+                    </div>
+                    <div class="impact-glow"></div>
+                    <div class="impact-particles">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- World Map Visualization -->
+            <div class="world-map-section" data-aos="fade-up" data-aos-delay="400">
+                <div class="map-container">
+                    <div class="map-point point-1" data-tooltip="India: 142 Clients">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="map-point point-2" data-tooltip="Europe: 89 Clients">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="map-point point-3" data-tooltip="China: 67 Clients">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="map-point point-4" data-tooltip="GCC: 44 Clients">
+                        <div class="point-pulse"></div>
+                    </div>
+                    <div class="connection-line line-1"></div>
+                    <div class="connection-line line-2"></div>
+                    <div class="connection-line line-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-background">
+            <div class="cta-orb orb-1"></div>
+            <div class="cta-orb orb-2"></div>
+            <div class="cta-grid"></div>
+        </div>
+        <div class="cta-container">
+            <div class="cta-content" data-aos="zoom-in">
+                <div class="cta-badge">
+                    <span class="badge-icon">🚀</span>
+                    <span>Start Your Journey</span>
+                </div>
+                <h2 class="cta-title">
+                    Ready to Transform Your
+                    <br>
+                    <span class="gradient-text">Sustainability Strategy?</span>
+                </h2>
+                <p class="cta-description">Join leading enterprises in reducing environmental impact with AI-powered intelligence</p>
+                
+                <div class="cta-features">
+                    <div class="cta-feature">
+                        <span class="feature-check">✓</span>
+                        <span>Free 30-day trial</span>
+                    </div>
+                    <div class="cta-feature">
+                        <span class="feature-check">✓</span>
+                        <span>No credit card required</span>
+                    </div>
+                    <div class="cta-feature">
+                        <span class="feature-check">✓</span>
+                        <span>Full platform access</span>
+                    </div>
+                </div>
+
+                <div class="cta-actions">
+                    <a href="/login" class="btn-cta-primary magnetic-btn">
+                        <span class="btn-content">
+                            <span>Launch Platform Now</span>
+                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <div class="btn-shine"></div>
+                    </a>
+                    <button class="btn-cta-secondary magnetic-btn">
+                        <span class="btn-content">
+                            <span>📅</span>
+                            <span>Schedule Demo</span>
+                        </span>
+                    </button>
+                </div>
+
+                <div class="cta-social-proof">
+                    <div class="avatar-group">
+                        <div class="avatar">A</div>
+                        <div class="avatar">B</div>
+                        <div class="avatar">C</div>
+                        <div class="avatar">+339</div>
+                    </div>
+                    <div class="social-text">
+                        <strong>342 companies</strong> are already transforming their sustainability
+                    </div>
+                </div>
+            </div>
+            
+            <div class="cta-visual" data-aos="fade-left">
+                <div class="dashboard-preview">
+                    <div class="preview-header">
+                        <div class="preview-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <div class="preview-title">ECOMINE Dashboard</div>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-card card-1">
+                            <div class="card-label">Energy Efficiency</div>
+                            <div class="card-value">96%</div>
+                            <div class="card-chart"></div>
+                        </div>
+                        <div class="preview-card card-2">
+                            <div class="card-label">CO₂ Reduction</div>
+                            <div class="card-value">847K</div>
+                            <div class="card-chart"></div>
+                        </div>
+                        <div class="preview-card card-3">
+                            <div class="card-label">Compliance</div>
+                            <div class="card-value">100%</div>
+                            <div class="card-chart"></div>
+                        </div>
+                    </div>
+                    <div class="preview-glow"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="landing-footer">
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="logo-icon-animated"></div>
+                    <span class="logo-text">ECOMINE</span>
+                </div>
+                <p class="footer-tagline">AI-Powered Sustainability Intelligence Platform</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#technology">Technology</a>
+                    <a href="/login">Platform</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Company</h4>
+                    <a href="#impact">Impact</a>
+                    <a href="#">About Us</a>
+                    <a href="#">Careers</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Resources</h4>
+                    <a href="#">Documentation</a>
+                    <a href="#">API</a>
+                    <a href="#">Support</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 ECOMINE. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Mouse Follower -->
+    <div class="cursor-follower"></div>
+    <div class="cursor-dot"></div>
+
+    <script src="landing.js"></script>
+</body>
+</html>
